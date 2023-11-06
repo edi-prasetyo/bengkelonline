@@ -15,8 +15,11 @@
   <link href="{{asset('assets/vendor/offcanvas/offcanvas-navbar.css')}}" rel="stylesheet">
   <link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+    rel="stylesheet">
 
-  <link rel="stylesheet" href="{{asset('assets/vendor/select2bs5/select2-bootstrap-5-theme.min.css')}}" />
+  {{--
+  <link rel="stylesheet" href="{{asset('assets/vendor/select2bs5/select2-bootstrap-5-theme.min.css')}}" /> --}}
 
 
 </head>
@@ -42,6 +45,8 @@
 <script src="{{asset('assets/vendor/offcanvas/offcanvas-navbar.js')}}"></script>
 <script src="{{asset('assets/js/jquery-3.6.3.min.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 {{-- <script type="text/javascript">
   var nav = document.querySelector('nav');

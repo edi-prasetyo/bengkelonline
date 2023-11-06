@@ -31,6 +31,11 @@ class OrderController extends Controller
         // $order->discount = $request['discount'];
         $order->province = $request['province'];
         $order->city = $request['city'];
+        $order->car_brand = $request['car_brand'];
+        $order->car_model = $request['car_model'];
+        $order->car_year = $request['car_year'];
+        $order->schedule_date = $request['schedule_date'];
+        $order->schedule_time = $request['schedule_time'];
         $order->grand_total = $request['grand_total'];
         $order->payment_method = $request['payment_method'];
         $order->payment_status = $request['payment_status'];

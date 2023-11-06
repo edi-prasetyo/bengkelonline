@@ -19,12 +19,12 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{url('/')}}">Home</a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="#">Booking</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('/services')}}">Service</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Layanan Darurat</a>
-                    </li> --}}
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('/contact')}}">Hubungi Kami</a>
                     </li>

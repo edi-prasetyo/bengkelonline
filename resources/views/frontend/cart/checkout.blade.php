@@ -107,8 +107,8 @@
                         <div class="row">
                             <div class="col-md-6 ">
                                 <label class="form-label">Pilih Kota</label>
-                                <select class="form-select basic-usage" id="country-dropdown"
-                                    data-placeholder="Choose one thing" name="province">
+                                <select class="form-select" id="country-dropdown" data-placeholder="Choose one thing"
+                                    name="province">
                                     <option></option>
                                     @foreach($provinces as $key => $province)
                                     <option value="{{$province->id}}">{{$province->name}}</option>
@@ -136,8 +136,66 @@
                             <label class="form-label">Nomor whatsapp</label>
                             <input type="text" name="phone_number" class="form-control">
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Tanggal</label>
+                            <input type="text" name="schedule_date" class="form-control" id="datepicker">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Jam</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Pilih Jam</option>
+                                <option value="09:00">09:00</option>
+                                <option value="09.30">09.30</option>
+                                <option value="10.00">10.00</option>
+                                <option value="10.30">10.30</option>
+                                <option value="11.00">11.00</option>
+                                <option value="11.30">11.30</option>
+                                <option value="12.00">12.00</option>
+                                <option value="12.30">12.30</option>
+                                <option value="13.00">13.00</option>
+                                <option value="13.30">13.30</option>
+                                <option value="14.00">14.00</option>
+                                <option value="14.30">14.30</option>
+                                <option value="15.00">15.00</option>
+                                <option value="15.30">15.30</option>
+                                <option value="16.00">16.00</option>
+                                <option value="16.30">16.30</option>
+                                <option value="17.00">17.00</option>
+                            </select>
+                        </div>
                     </div>
 
+
+                </div>
+            </div>
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Detail kendaraan
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <label class="form-label">Pilih Merek</label>
+                            <select class="form-select" id="car-dropdown" data-placeholder="Choose one thing"
+                                name="car_brand">
+                                <option></option>
+                                @foreach($brands as $key => $brand)
+                                <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Model Kendaraan</label>
+                            <select id="model-dropdown" class="form-select" name="car_model">
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Tahun Kendaraan</label>
+                            <textarea name="car_year" class="form-control"></textarea>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -145,12 +203,12 @@
 
             <div class="border rounded p-3 mb-3 bg-white">
                 <!-- Offer -->
-                <h6>Detail Pembaayaran</h6>
+                <h6>Detail Estimasi</h6>
                 <hr class="mx-n3">
 
                 <!-- Price Details -->
                 <dl class="row mb-0">
-                    <dt class="col-6 fw-normal">Total Belanja</dt>
+                    <dt class="col-6 fw-normal">Estimasi Harga</dt>
                     <dd class="col-6 text-end">Rp. {{ number_format($total) }}</dd>
 
                     <dt class="col-6 fw-normal">Order Total</dt>
@@ -210,14 +268,35 @@ $('#country-dropdown').on('change', function () {
                 $("#state-dropdown").append('<option value="' + value
                     .id + '">' + value.name + '</option>');
             });
-            $('#city-dropdown').html('<option value="">-- Pilih Kota --</option>');
         }
     });
 });
 
+$('#car-dropdown').on('change', function () {
+    var idBrand = this.value;
+    $("#model-dropdown").html('');
+    $.ajax({
+        url: "{{url('services/fetch-model')}}",
+        type: "POST",
+        data: {
+            brand_id: idBrand,
+            _token: '{{csrf_token()}}'
+        },
+        dataType: 'json',
+        success: function (result) {
+            $('#model-dropdown').html('<option value="">-- Select Model --</option>');
+            $.each(result.carmodel, function (key, value) {
+                $("#model-dropdown").append('<option value="' + value
+                    .name + '">' + value.name + '</option>');
+            });
+        }
+    });
 });
 
-    $( '.basic-usage' ).select2( {
+
+});
+
+$( '#basic-usage' ).select2( {
     theme: "bootstrap-5",
     width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
     placeholder: $( this ).data( 'placeholder' ),
@@ -232,6 +311,16 @@ $('#country-dropdown').on('change', function () {
     $(formToShow).addClass('active');
   });
 });
+
+
+$(function(){
+    
+  $('#datepicker').datepicker({
+    format: 'yyyy-dd-mm',
+    startDate: '+1d'
+  });
+});
+
 </script>
 
 @endsection

@@ -72,6 +72,7 @@ Route::get('/contact', [FrontendController::class, 'contact']);
 Route::get('/services', [FrontendServiceController::class, 'index']);
 Route::get('/services/{slug}', [FrontendServiceController::class, 'show']);
 Route::post('services/fetch-city', [FrontendServiceController::class, 'fetchCity'])->name('fetchCity');
+Route::post('services/fetch-model', [FrontendServiceController::class, 'fetchModel'])->name('fetchModel');
 
 // Cart
 Route::get('add-to-cart/{uuid}', [FrontendServiceController::class, 'addToCart'])->name('add.to.cart');
@@ -113,6 +114,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/brands', 'store');
         Route::get('/brands/edit/{brand}', 'edit');
         Route::put('/brands/{brand}', 'update');
+        Route::get('/brands/show/{brand_id}', 'show');
+        Route::post('/brands/add_model', 'add_model');
     });
     // Type Route
     Route::controller(TypeController::class)->group(function () {

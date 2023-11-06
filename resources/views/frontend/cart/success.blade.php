@@ -68,10 +68,7 @@
                     </div>
 
 
-                    <p class="mt-5">Order anda sudah di buat Silahkan Melakukan Pembayaran dengan Mengklik Tombol di
-                        bawah ini</p>
-                    <a href="{{url('payment/' .$order->code)}}" class="btn btn-primary"> Bayar Sekarang</a>
-                    <a href="{{url('orders/pdf/' .$order->code)}}" class="btn btn-success">Download Pdf</a>
+                    <p class="mt-5">Order anda sudah di buat, Admin Kami akan segera menghubungi anda</p>
 
                 </div>
             </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
+use App\Models\CarModel;
 use App\Models\City;
 use App\Models\Province;
 use App\Models\Service;
@@ -106,19 +108,28 @@ class ServiceController extends Controller
 
         $provinces = Province::all();
         $cart = session()->get('cart');
+        $brands = Brand::all();
         if (!$cart) {
             return redirect()->back()->with('success', 'Cart is Empty');
         } else {
             // $userId =  Auth::user()->id;
             // $saldo = Wallet::where('user_id', $userId)->first();
             // return $provinces;
-            return view('frontend.cart.checkout', compact('provinces'));
+            return view('frontend.cart.checkout', compact('provinces', 'brands'));
         }
     }
 
     public function fetchCity(Request $request)
     {
         $data['cities'] = City::where("province_id", $request->province_id)
+            ->get(["name", "id"]);
+
+        return response()->json($data);
+    }
+
+    public function fetchModel(Request $request)
+    {
+        $data['carmodel'] = CarModel::where("brand_id", $request->brand_id)
             ->get(["name", "id"]);
 
         return response()->json($data);

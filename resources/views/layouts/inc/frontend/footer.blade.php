@@ -23,7 +23,6 @@
                 </div>
 
             </div>
-
             <div class="col-md-4">
                 <h4 class="footer-heading">Alamat</h4>
                 <div class="footer-underline"></div>

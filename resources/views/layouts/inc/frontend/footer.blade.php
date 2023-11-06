@@ -2,10 +2,6 @@
     <div class="container">
 
 
-
-
-
-
         <div class="row">
             <div class="col-md-3">
                 <h4 class="footer-heading">About Us</h4>

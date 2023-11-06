@@ -22,9 +22,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('/services')}}">Service</a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="#">Layanan Darurat</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('/contact')}}">Hubungi Kami</a>
                     </li>

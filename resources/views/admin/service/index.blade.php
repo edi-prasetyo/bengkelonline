@@ -18,8 +18,9 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Harga Service</th>
+                        <th>Name</th>
+                        <th width="5%">Gambar</th>
+                        <th>Harga Service</th>
                         <th width="20%">Action</th>
                     </tr>
                 </thead>
@@ -27,13 +28,15 @@
                     @foreach ($services as $data)
                     <tr>
                         <td>{{$data->name}}</td>
+                        <td><img src="{{asset($data->image)}}" class="img-fluid"> </td>
                         <td>{{$data->service_price}}</td>
                         <td>
                             <a href="{{url('admin/services/show/' .$data->id)}}"
                                 class="btn btn-sm btn-success text-white">Add Item</a>
                             <a href="{{url('admin/services/edit/' .$data->id)}}"
                                 class="btn btn-sm btn-primary text-white">Edit</a>
-                            @include('admin.service.delete')
+                            <a href="{{url('admin/services/delete/' .$data->id)}}"
+                                class="btn btn-sm btn-danger text-white">Delete</a>
                         </td>
                     </tr>
                     @endforeach

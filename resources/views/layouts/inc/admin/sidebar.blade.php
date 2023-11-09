@@ -37,9 +37,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{url('admin/products')}}" class="nav-link">
+            <a href="{{url('admin/services')}}" class="nav-link">
                 <i class="feather-shopping-bag mr-3  fa-fw"></i>
-                Product
+                Service
             </a>
         </li>
         <li class="nav-item">

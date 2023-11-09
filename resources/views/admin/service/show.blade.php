@@ -138,8 +138,9 @@
                     <td>{{$item->name}}</td>
                     <td>{{$item->price}}</td>
                     <td>
-                        <a href="" class="btn btn-danger btn-sm"> <i class="feather-trash  fa-fw"></i></a>
                         <a href="" class="btn btn-primary btn-sm"> <i class="feather-edit  fa-fw"></i></a>
+                        <a href="{{url('admin/services/delete-item/' .$item->id)}}" class="btn btn-danger btn-sm"> <i
+                                class="feather-trash  fa-fw"></i></a>
                     </td>
                 </tr>
                 @endforeach

@@ -60,35 +60,32 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-5 mb-3">
-                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2 mt-3">
                             <a href="{{ url('/services') }}" class="btn btn-warning text-start"><i
                                     class='bx bx-car'></i>
                                 Tambah Layanan Servis</a>
-
-
-                            <h3>Total Rp. {{ number_format($total) }}</h3>
-
                         </div>
+                    </div>
+                    <div class="mt-5 mb-3">
+
                     </div>
                 </div>
 
 
                 <div class="col-md-4">
                     <div class="border rounded p-3 mb-3 bg-white">
-                        <h6>Pembayaran</h6>
+                        <h6>Total Harga</h6>
                         <hr class="mx-n3">
                         <div class="form-check custom-option custom-option-basic  rounded">
                             <label class="form-check-label custom-option-content" for="payment1">
                                 <input name="payment" class="form-check-input" type="radio" value="" id="payment1"
                                     checked="">
                                 <span class="custom-option-header">
-                                    <div class="fw-semibold">Transfer</div>
+                                    <div class="fw-semibold">Estimasi Harga</div>
                                 </span>
                                 <span class="custom-option-body">
-                                    <small>Metode Pembayaran Transfer bank, di cek secara manual, dengan
-                                        menunjukan bukti transfer di halaman berikutnya</small>
+                                    <h3>Rp. {{ number_format($total) }}</h3>
+                                    <small>Ini Adalah Estimasi Harga Sesuai Produk dan Jasa yang anda Pilih</small>
                                 </span>
                             </label>
                         </div>

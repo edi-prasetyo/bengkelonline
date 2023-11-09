@@ -22,6 +22,7 @@ use App\Http\Controllers\Frontend\OrderController as FrontendOrderController;
 use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
 use App\Http\Controllers\Frontend\TagController as FrontendTagController;
 use App\Http\Controllers\Frontend\ServiceController as FrontendServiceController;
+use App\Http\Controllers\Frontend\PageController as FrontendPageController;
 
 use App\Http\Controllers\HomeController;
 use App\Models\Tag;
@@ -73,6 +74,7 @@ Route::get('/services', [FrontendServiceController::class, 'index']);
 Route::get('/services/{slug}', [FrontendServiceController::class, 'show']);
 Route::post('services/fetch-city', [FrontendServiceController::class, 'fetchCity'])->name('fetchCity');
 Route::post('services/fetch-model', [FrontendServiceController::class, 'fetchModel'])->name('fetchModel');
+Route::get('/sitemap.xml', [FrontendPageController::class, 'sitemap']);
 
 // Cart
 Route::get('add-to-cart/{uuid}', [FrontendServiceController::class, 'addToCart'])->name('add.to.cart');
@@ -185,12 +187,6 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::put('/sliders/{slider}', 'update');
         Route::get('/sliders/delete/{slider}', 'destroy');
     });
-    // Sliders Route
-    Route::controller(TopupController::class)->group(function () {
-        Route::get('/topups', 'index');
-        Route::get('/topups/show/{topup}', 'show');
-        Route::put('/topups/update/{topup_id}', 'update');
-    });
     // Option Route
     Route::controller(OptionController::class)->group(function () {
         Route::get('/options', 'index');
@@ -200,10 +196,12 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::controller(ServiceController::class)->group(function () {
         Route::get('/services', 'index');
         Route::get('/services/create', 'create');
-        Route::get('/services/edit/{service}', 'edit');
-        // Route::post('/services/{service}', 'update');
+        Route::get('/services/edit/{service_id}', 'edit');
+        Route::put('/services/{service_id}', 'update');
         Route::get('/services/show/{service_id}', 'show');
         Route::post('/services/add_item', 'add_item');
         Route::post('/services', 'store');
+        Route::get('/services/delete/{service_id}', 'destroy');
+        Route::get('/services/delete-item/{item_id}', 'destroy_item');
     });
 });

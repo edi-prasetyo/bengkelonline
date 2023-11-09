@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use App\Models\Category;
+use App\Models\Service;
 
 
 class FrontendController extends Controller
@@ -12,9 +13,10 @@ class FrontendController extends Controller
     public function index()
     {
 
-        $sliders = Slider::where('status', '1')->get();
+        $sliders = Slider::where(['status' => 1, 'type' => 0])->get();
         $categories = Category::where('status', 1)->get();
-        return view('frontend.index', compact('sliders', 'categories'));
+        $services = Service::all();
+        return view('frontend.index', compact('sliders', 'categories', 'services'));
     }
     public function categories()
     {

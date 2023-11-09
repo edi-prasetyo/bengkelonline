@@ -53,7 +53,7 @@ class ServiceController extends Controller
                 ]
             ];
             session()->put('cart', $cart);
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
+            return redirect('cart')->with('success', 'Product added to cart successfully!');
         }
         // if cart not empty then check if this product exist then increment quantity
         if (isset($cart[$id])) {
@@ -110,7 +110,7 @@ class ServiceController extends Controller
         $cart = session()->get('cart');
         $brands = Brand::all();
         if (!$cart) {
-            return redirect()->back()->with('success', 'Cart is Empty');
+            return redirect('/cart')->with('success', 'Cart is Empty');
         } else {
             // $userId =  Auth::user()->id;
             // $saldo = Wallet::where('user_id', $userId)->first();

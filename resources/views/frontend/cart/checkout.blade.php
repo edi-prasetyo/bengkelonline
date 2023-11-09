@@ -106,7 +106,7 @@
                     <div class="form form-b">
                         <div class="row">
                             <div class="col-md-6 ">
-                                <label class="form-label">Pilih Kota</label>
+                                <label class="form-label">Pilih Provinsi</label>
                                 <select class="form-select" id="country-dropdown" data-placeholder="Choose one thing"
                                     name="province">
                                     <option></option>
@@ -114,6 +114,7 @@
                                     <option value="{{$province->id}}">{{$province->name}}</option>
                                     @endforeach
                                 </select>
+
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Kota</label>
@@ -130,20 +131,40 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label class="form-label">Nama Lengkap</label>
-                            <input type="text" name="full_name" class="form-control">
+                            <input type="text" name="full_name"
+                                class="form-control @error('full_name') is-invalid @enderror">
+                            @error('full_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Nomor whatsapp</label>
-                            <input type="text" name="phone_number" class="form-control">
+                            <input type="text" name="phone_number"
+                                class="form-control @error('phone_number') is-invalid @enderror">
+                            @error('phone_number')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tanggal</label>
-                            <input type="text" name="schedule_date" class="form-control" id="datepicker">
+                            <input type="text" name="schedule_date"
+                                class="form-control @error('schedule_date') is-invalid @enderror" id="datepicker">
+                            @error('schedule_date')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Jam</label>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Pilih Jam</option>
+                            <select name="schedule_time"
+                                class="form-select @error('schedule_time') is-invalid @enderror"
+                                aria-label="Default select example">
+                                <option></option>
                                 <option value="09:00">09:00</option>
                                 <option value="09.30">09.30</option>
                                 <option value="10.00">10.00</option>
@@ -162,6 +183,11 @@
                                 <option value="16.30">16.30</option>
                                 <option value="17.00">17.00</option>
                             </select>
+                            @error('schedule_time')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
 
@@ -178,22 +204,39 @@
                     <div class="row">
                         <div class="col-md-6 ">
                             <label class="form-label">Pilih Merek</label>
-                            <select class="form-select" id="car-dropdown" data-placeholder="Choose one thing"
-                                name="car_brand">
+                            <select class="form-select @error('car_brand') is-invalid @enderror" id="car-dropdown"
+                                data-placeholder="Choose one thing" name="car_brand">
                                 <option></option>
                                 @foreach($brands as $key => $brand)
                                 <option value="{{$brand->id}}">{{$brand->name}}</option>
                                 @endforeach
                             </select>
+                            @error('car_brand')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Model Kendaraan</label>
-                            <select id="model-dropdown" class="form-select" name="car_model">
+                            <select id="model-dropdown" class="form-select @error('car_model') is-invalid @enderror"
+                                name="car_model">
                             </select>
+                            @error('car_model')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="col-md-12">
                             <label class="form-label">Tahun Kendaraan</label>
-                            <textarea name="car_year" class="form-control"></textarea>
+                            <input type="text" name="car_year"
+                                class="form-control @error('car_year') is-invalid @enderror">
+                            @error('car_year')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
 
@@ -263,10 +306,9 @@ $('#country-dropdown').on('change', function () {
         },
         dataType: 'json',
         success: function (result) {
-            $('#state-dropdown').html('<option value="">-- Select Type --</option>');
+            $('#state-dropdown').html('<option value="">-- Pilih Kota --</option>');
             $.each(result.cities, function (key, value) {
-                $("#state-dropdown").append('<option value="' + value
-                    .id + '">' + value.name + '</option>');
+                $("#state-dropdown").append('<option value="' + value.id + '">' + value.name + '</option>');
             });
         }
     });

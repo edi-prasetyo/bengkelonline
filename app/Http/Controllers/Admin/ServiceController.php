@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use App\Models\Service;
 use App\Models\ServiceItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+
 
 class ServiceController extends Controller
 {
@@ -55,6 +57,39 @@ class ServiceController extends Controller
         return redirect('admin/services')->with('message', 'Jasa telah di tambahkan');
     }
 
+    public function edit(int $service_id)
+    {
+        $service = Service::where('id', $service_id)->first();
+        return view('admin.service.edit', compact('service'));
+    }
+    public function update(Request $request, int $service_id)
+    {
+        $service = Service::where('id', $service_id)->first();
+
+        $service->name = $request['name'];
+        $service->description = $request['description'];
+        $service->service_price = $request['service_price'];
+
+        $uploadPath = 'uploads/service/';
+        if ($request->hasFile('image')) {
+
+            $path = $service->image;
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $ext;
+            $file->move('uploads/service/', $filename);
+            $service->image = $uploadPath . $filename;
+
+            $service->status = $request->status == true ? '1' : '0';
+            $service->update();
+            return redirect('admin/services')->with('message', 'Jasa telah di update');
+        }
+    }
+
     public function show(int $service_id)
     {
         $service = Service::where('id', $service_id)->first();
@@ -97,5 +132,26 @@ class ServiceController extends Controller
         $serviceItem->status = $request->status == true ? '1' : '0';
         $serviceItem->save();
         return redirect()->back()->with('message', '<div class="alert alert-success">data Item telah di tambahkan</div>');
+    }
+
+    public function destroy(int $service_id)
+    {
+        $service = Service::findOrFail($service_id);
+        $path = $service->image;
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+        $service->delete();
+        return redirect()->back()->with('message', 'Product and Image was Deleted!');
+    }
+    public function destroy_item(int $item_id)
+    {
+        $serviceItem = ServiceItem::findOrFail($item_id);
+        $path = $serviceItem->image;
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+        $serviceItem->delete();
+        return redirect()->back()->with('message', '<div class="alert alert-danger">Service Item was Deleted!</div>');
     }
 }

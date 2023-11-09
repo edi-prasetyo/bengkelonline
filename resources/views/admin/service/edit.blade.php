@@ -9,66 +9,46 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header bg-white">
-            <h4>Edit Category</h4>
+            <h4>Edit Service</h4>
         </div>
         <div class="card-body">
             <div class="row">
-                <form action="{{url('admin/category/' .$category->id)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('admin/services/' .$service->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="mb-3">
-                        <label class="form-label">Name</label>
-                        <input type="text" name="name" value="{{$category->name}}" class="form-control">
-                        @error('name') <small>
-                            <div class="text-danger">{{$message}}</div>
-                        </small> @enderror
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Nama Jasa</label>
+                                <input type="text" name="name" class="form-control" value="{{$service->name}}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Harga Jasa</label>
+                                <input type="text" name="service_price" class="form-control"
+                                    value="{{$service->service_price}}" required>
+                            </div>
+                        </div>
                     </div>
-               
-                    <div class="mb-3">
-                        <label class="form-label">Desc</label>
-                        <textarea name="description" class="form-control">{{$category->description}}</textarea>
-                        @error('description') <small>
-                            <div class="text-danger">{{$message}}</div>
-                        </small> @enderror
-                    </div>
+
                     <div class="mb-3">
                         <label class="form-label">Image</label>
                         <input type="file" name="image" class="form-control">
                         <div class="col-md-4 my-3">
-                            <img class="img-fluid" src="{{asset('/uploads/category/' .$category->image)}}">
+                            <img src="{{$service->image}}" class="img-fluid">
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="col-md-6">
                             <div class="form-check form-switch">
                                 <label class="form-check-label">Status</label>
-                                <input class="form-check-input" type="checkbox" name="status" {{$category->status == '1'
+                                <input class="form-check-input" type="checkbox" name="status" {{$service->status == '1'
                                 ? 'checked':''}}>
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Meta Title</label>
-                        <input type="text" name="meta_title" value="{{$category->meta_title}}" class="form-control">
-                        @error('meta_title') <small>
-                            <div class="text-danger">{{$message}}</div>
-                        </small> @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Meta Desc</label>
-                        <textarea name="meta_description"
-                            class="form-control">{{$category->meta_description}}</textarea>
-                        @error('meta_description') <small>
-                            <div class="text-danger">{{$message}}</div>
-                        </small> @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Meta Keyeword</label>
-                        <textarea name="meta_keyword" class="form-control">{{$category->meta_keyword}}</textarea>
-                        @error('meta_keyword') <small>
-                            <div class="text-danger">{{$message}}</div>
-                        </small> @enderror
-                    </div>
+
                     <div class="mb-3">
                         <button type="submit" class="btn btn-primary">Update</button>
                     </div>

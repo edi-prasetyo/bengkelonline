@@ -3,45 +3,47 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderFormRequest;
 use App\Models\Bank;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Wallet;
-use App\Models\Walletlog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+
 use PDF;
 
 class OrderController extends Controller
 {
-    public function orders(Request $request)
+    public function orders(OrderFormRequest $request)
     {
+
+        $validatedData = $request->validated();
 
         $code = Str::uuid()->toString(50);
         $invoice_number = random_int(100000, 999999);
         $order = new Order;
-        $order->user_id = $request['user_id'];
-        $order->full_name = $request['full_name'];
+        // $order->user_id = $validatedData['user_id'];
+        $order->full_name = $validatedData['full_name'];
         // $order->customer_email = $request['customer_email'];
-        $order->phone_number = $request['phone_number'];
+        $order->phone_number = $validatedData['phone_number'];
         $order->invoice = $invoice_number;
         $order->code = $code;
         // $order->discount = $request['discount'];
-        $order->province = $request['province'];
-        $order->city = $request['city'];
-        $order->car_brand = $request['car_brand'];
-        $order->car_model = $request['car_model'];
-        $order->car_year = $request['car_year'];
-        $order->schedule_date = $request['schedule_date'];
-        $order->schedule_time = $request['schedule_time'];
-        $order->grand_total = $request['grand_total'];
-        $order->payment_method = $request['payment_method'];
-        $order->payment_status = $request['payment_status'];
-        $order->home_service = $request['home_service'];
-        $order->status = $request['status'];
-        $order->address = $request['address'];
+        $order->province = $validatedData['province'];
+        $order->city = $validatedData['city'] ?? null;
+        $order->car_brand = $validatedData['car_brand'];
+        $order->car_model = $validatedData['car_model'];
+        $order->car_year = $validatedData['car_year'];
+        $order->schedule_date = $validatedData['schedule_date'];
+        $order->schedule_time = $validatedData['schedule_time'];
+        $order->grand_total = $validatedData['grand_total'];
+        $order->payment_method = $validatedData['payment_method'];
+        $order->payment_status = $validatedData['payment_status'];
+        $order->home_service = $validatedData['home_service'];
+        $order->status = $validatedData['status'];
+        $order->address = $validatedData['address'];
 
         $order->save();
 

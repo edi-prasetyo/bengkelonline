@@ -109,7 +109,7 @@ class ProductController extends Controller
                 $product->meta_title = $request['meta_title'],
                 $product->meta_description = $request['meta_description'],
                 $product->meta_keyword = $request['meta_keyword'],
-                
+
 
             ]);
 
@@ -169,6 +169,6 @@ class ProductController extends Controller
             }
         }
         $product->delete();
-        return redirect()->back()->with('message', 'Product and Image was Deleted!');
+        return redirect()->back()->with('message', 'Services was Deleted!');
     }
 }

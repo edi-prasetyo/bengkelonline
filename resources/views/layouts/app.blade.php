@@ -18,10 +18,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
     rel="stylesheet">
 
-  {{--
-  <link rel="stylesheet" href="{{asset('assets/vendor/select2bs5/select2-bootstrap-5-theme.min.css')}}" /> --}}
-
-
 </head>
 
 <body class="d-flex flex-column min-vh-100">

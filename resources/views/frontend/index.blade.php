@@ -322,7 +322,7 @@ return false;
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: 'https://angelitarentcar.co.id/wp-json/wp/v2/posts?per_page=4&orderby=id',
+            url: 'https://blog.bengkelonline.com/wp-json/wp/v2/posts?per_page=4&orderby=id',
 
             success: function (data) {
                 var posts_html = '';

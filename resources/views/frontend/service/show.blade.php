@@ -5,12 +5,13 @@
     <div class="col-md-8 mx-auto mb-3">
         @foreach($serviceItem as $item)
         <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-3">
-                    <img src="{{asset($item->image)}}" class="card-img-top img-fluid" alt="{{$service->name}}">
-                </div>
-                <div class="col-md-6">
-                    <div class="card-body">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="{{asset($item->image)}}" class="img-fluid rounded" alt="{{$service->name}}">
+                    </div>
+                    <div class="col-md-6">
+
                         <h5 class="card-title">{{$item->name}}</h5>
                         <p class="card-text">{{$item->description}}</p>
                         <h3>IDR. {{number_format($item->price)}}</h3>
@@ -18,10 +19,10 @@
                                 Rp. {{number_format($service->service_price)}}</small></p>
 
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <a href="{{ url('add-to-cart/'.$item->uuid) }}" class="btn btn-outline-success text-center"
-                        role="button"> <i class='bx bx-shopping-bag'></i> Tambah Item</a>
+                    <div class="col-md-3 my-auto">
+                        <a href="{{ url('add-to-cart/'.$item->uuid) }}" class="btn btn-outline-success text-center"
+                            role="button"> <i class='bx bx-shopping-bag'></i> Tambah Item</a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -42,7 +42,10 @@ use App\Models\Tag;
 //     return view('welcome');
 // });
 
-Auth::routes(['verify' => true]);
+Auth::routes([
+    'verify' => true,
+    'register' => false,
+]);
 
 Route::prefix('member')->middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home');

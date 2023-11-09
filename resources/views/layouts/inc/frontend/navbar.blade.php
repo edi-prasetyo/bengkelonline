@@ -1,5 +1,7 @@
-<nav class="navbar fixed-top navbar-expand-lg border-bottom bg-white navbar-light" aria-label="Offcanvas navbar large">
+<nav class="navbar fixed-top navbar-expand-md border-bottom bg-white navbar-light" aria-label="Offcanvas navbar large">
+
     <div class="container">
+
         <a class="navbar-brand" href="#"><img style="width:200px;"
                 src="{{asset('uploads/logo/'.$option_nav->logo)}}"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
@@ -112,4 +114,6 @@
             </div>
         </div>
     </div>
+
+
 </nav>

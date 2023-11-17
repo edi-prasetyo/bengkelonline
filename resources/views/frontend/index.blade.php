@@ -322,7 +322,7 @@ return false;
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: 'https://blog.bengkelonline.com/wp-json/wp/v2/posts?per_page=4&orderby=id',
+            url: 'https://bengkelonline.com/blog/wp-json/wp/v2/posts?per_page=4&orderby=id',
 
             success: function (data) {
                 var posts_html = '';

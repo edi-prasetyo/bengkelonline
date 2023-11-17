@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\UserCar;
 use App\Models\UserDetail;
 use App\Models\Wallet;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -57,6 +58,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'whatsapp' => ['required', 'string', 'unique:whatsapp'],
             'password' => [
                 'required',
                 Password::min(8)
@@ -79,6 +81,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'whatsapp' => $data['whatsapp'],
             'password' => Hash::make($data['password']),
             'role_as' => 4,
         ]);
@@ -89,6 +92,9 @@ class RegisterController extends Controller
         ]);
 
         UserDetail::create([
+            'user_id' => $user->id,
+        ]);
+        UserCar::create([
             'user_id' => $user->id,
         ]);
 

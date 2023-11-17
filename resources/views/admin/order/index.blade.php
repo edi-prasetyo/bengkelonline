@@ -12,6 +12,7 @@
     <div class="card">
         <div class="card-header bg-white d-flex justify-content-between align-items-start">
             <h4 class="my-auto">Data Orders</h4>
+            <a href="{{url('admin/orders/service')}}" class="btn btn-success text-white">Add Order</a>
         </div>
         <div class="table-responsive">
             <table class="table table-striped">

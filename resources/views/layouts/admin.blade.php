@@ -15,10 +15,10 @@
     <link href="{{asset('admin/css/custom.css')}}" rel="stylesheet">
     <link href="{{asset('admin/vendor/icons/fontawesome/css/all.min.css')}}" rel="stylesheet">
     <link href="{{asset('admin/vendor/icons/feather-icons/feather.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{('admin/vendor/autocomplete/jquery-ui.css')}}">
+    <link rel="stylesheet" href="{{asset('admin/vendor/autocomplete/jquery-ui.css')}}">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('admin/vendor/fonts/poppins/styles.css')}}">
+
 
     <!-- select 2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />

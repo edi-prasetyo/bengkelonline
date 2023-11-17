@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TopupController;
@@ -44,7 +45,7 @@ use App\Models\Tag;
 
 Auth::routes([
     'verify' => true,
-    'register' => false,
+    'register' => true,
 ]);
 
 Route::prefix('member')->middleware(['auth'])->group(function () {
@@ -178,6 +179,15 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     // Order Route
     Route::controller(OrderController::class)->group(function () {
         Route::get('/orders', 'index');
+        Route::get('/orders/service', 'service');
+        Route::get('/orders/service/{id}', 'detail');
+        Route::patch('/orders/update-cart', 'update')->name('update.admincart');
+        Route::delete('/orders/remove-from-cart', 'remove')->name('remove.from.admincart');
+        // cart session
+        Route::get('/orders/add-to-cart/{uuid}', 'addToAdminCart')->name('add.to.admincart');
+        Route::get('/orders/admincart', 'admincart')->name('admincart');
+
+
         Route::get('/orders/{order_id}', 'show');
         Route::post('/orders/confirmation/{order_id}', 'confirmation');
     });
@@ -206,5 +216,14 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/services', 'store');
         Route::get('/services/delete/{service_id}', 'destroy');
         Route::get('/services/delete-item/{item_id}', 'destroy_item');
+    });
+    Route::controller(CustomerController::class)->group(function () {
+        Route::get('/customers', 'index');
+        Route::get('/customers/create', 'create');
+        Route::post('/customers', 'store');
+        Route::get('/customers/edit/{service_id}', 'edit');
+        Route::put('/customers/{service_id}', 'update');
+        Route::get('/customers/show/{service_id}', 'show');
+        Route::get('/customers/delete/{service_id}', 'destroy');
     });
 });

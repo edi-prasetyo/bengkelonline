@@ -134,6 +134,43 @@ class ServiceController extends Controller
         return redirect()->back()->with('message', '<div class="alert alert-success">data Item telah di tambahkan</div>');
     }
 
+    public function editItem(int $item_id)
+    {
+        $serviceItem = ServiceItem::where('id', $item_id)->first();
+        return view('admin.service.edit_item', compact('serviceItem'));
+    }
+    public function updateItem(Request $request, int $item_id)
+    {
+
+        $serviceItem = ServiceItem::where('id', $item_id)->first();
+
+        $serviceItem->name = $request['name'];
+        $serviceItem->price = $request['price'];
+        $serviceItem->description = $request['description'];
+        $serviceItem->meta_title = $request['meta_title'];
+        $serviceItem->meta_description = $request['meta_description'];
+        $serviceItem->meta_keyword = $request['meta_keyword'];
+
+        $uploadPath = 'uploads/service/';
+        if ($request->hasFile('image')) {
+
+            $path = $serviceItem->image;
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $ext;
+            $file->move('uploads/service/', $filename);
+            $serviceItem->image = $uploadPath . $filename;
+
+            $serviceItem->status = $request->status == true ? '1' : '0';
+            $serviceItem->update();
+            return redirect('admin/services/show/' . $serviceItem->service_id)->with('message', 'Jasa telah di update');
+        }
+    }
+
     public function destroy(int $service_id)
     {
         $service = Service::findOrFail($service_id);

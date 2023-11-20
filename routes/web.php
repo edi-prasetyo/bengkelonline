@@ -186,6 +186,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::put('/services/{service_id}', 'update');
         Route::get('/services/show/{service_id}', 'show');
         Route::post('/services/add_item', 'add_item');
+        Route::get('/services/edit-item/{item_id}', 'editItem');
+        Route::put('/services/update-item/{item_id}', 'updateItem');
         Route::post('/services', 'store');
         Route::get('/services/delete/{service_id}', 'destroy');
         Route::get('/services/delete-item/{item_id}', 'destroy_item');

@@ -8,9 +8,9 @@
             @foreach($services as $key => $service)
 
 
-            <div class="col-md-3">
+            <div class="col-md-3 col-6">
                 <a href="{{url('services/'. $service->slug)}}" class="text-decoration-none">
-                    <div class="card">
+                    <div class="card mb-3">
                         <img src="{{$service->image}}" class="card-img-top img-fluid" alt="{{$service->name}}">
                         <div class="card-body">
                             <h5 class="card-title text-center">{{$service->name}}</h5>

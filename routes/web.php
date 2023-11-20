@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TopupController;

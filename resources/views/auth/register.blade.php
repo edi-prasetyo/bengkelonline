@@ -6,9 +6,16 @@
         <div class="col-md-5">
             <div class="card border-0">
 
+                @if ($errors->any())
+                <div class="alert alert-warning">
+                    @foreach ($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+                @endif
 
                 <div class="card-body px-5">
-      
+
                     <h4>{{ __('Register') }}</h4>
 
 
@@ -35,6 +42,21 @@
                                 name="email" value="{{ old('email') }}" required autocomplete="email">
 
                             @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="whatsapp" class="col-form-label">{{ __('Whatsapp')
+                                }}</label>
+                            <input id="whatsapp" type="text"
+                                class="form-control @error('whatsapp') is-invalid @enderror" name="whatsapp"
+                                value="{{ old('whatsapp') }}" required autocomplete="whatsapp">
+
+                            @error('whatsapp')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

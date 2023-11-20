@@ -48,8 +48,8 @@
                     <table id="admincart" class="table table-condensed">
                         <thead>
                             <tr>
-                                <th style="width:50%">Servis</th>
-                                <th style="width:22%" class="text-center">Subtotal</th>
+                                <th style="width:20%">Servis</th>
+                                <th style="width:50%" class="text-center">Subtotal</th>
                                 <th style="width:10%"></th>
                             </tr>
                         </thead>
@@ -64,7 +64,7 @@
 
 
                                         <div class="col-md-8">
-                                            <h4 class="nomargin">{{ $details['name'] }}</h4>
+                                            <div class="nomargin">{{ $details['name'] }}</div>
 
                                         </div>
                                     </div>

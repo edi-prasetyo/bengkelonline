@@ -45,7 +45,6 @@ use App\Models\Tag;
 // });
 
 Auth::routes([
-    'verify' => false,
     'register' => true,
 ]);
 

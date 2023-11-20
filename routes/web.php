@@ -6,28 +6,21 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BankController;
-use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CustomerController;
-use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
-use App\Http\Controllers\Admin\TopupController;
 use App\Http\Controllers\Admin\TypeController;
-use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OptionController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use App\Http\Controllers\Frontend\OrderController as FrontendOrderController;
-use App\Http\Controllers\Frontend\BlogController as FrontendBlogController;
-use App\Http\Controllers\Frontend\TagController as FrontendTagController;
 use App\Http\Controllers\Frontend\ServiceController as FrontendServiceController;
 use App\Http\Controllers\Frontend\PageController as FrontendPageController;
 
 use App\Http\Controllers\HomeController;
-use App\Models\Tag;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,9 +62,6 @@ Route::get('/category', [FrontendController::class, 'categories']);
 Route::get('/category/{category_slug}', [FrontendController::class, 'products']);
 Route::get('/item/{product_slug}', [FrontendProductController::class, 'detail']);
 Route::get('/products', [FrontendProductController::class, 'index']);
-Route::get('/tags', [FrontendTagController::class, 'index']);
-Route::get('/tags/{tag_slug}', [FrontendTagController::class, 'products']);
-Route::get('/blog', [FrontendBlogController::class, 'index']);
 Route::get('/booking', [FrontendController::class, 'booking']);
 Route::get('/contact', [FrontendController::class, 'contact']);
 Route::get('/services', [FrontendServiceController::class, 'index']);
@@ -131,14 +121,6 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/types/edit/{type}', 'edit');
         Route::put('/types/{type}', 'update');
     });
-    // Program Route
-    Route::controller(ProgramController::class)->group(function () {
-        Route::get('/programs', 'index');
-        Route::get('/programs/create', 'create');
-        Route::post('/programs', 'store');
-        Route::get('/programs/edit/{brand}', 'edit');
-        Route::put('/programs/{brand}', 'update');
-    });
     // Bank Route
     Route::controller(BankController::class)->group(function () {
         Route::get('/banks', 'index');
@@ -166,15 +148,6 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/products/delete/{product_id}', 'destroy');
         Route::get('/products/testview/', 'testview');
         Route::post('/products/test/', 'test');
-    });
-    // Tag Route
-    Route::controller(TagController::class)->group(function () {
-        Route::get('/tags', 'index');
-        Route::get('/tags/create', 'create');
-        Route::post('/tags', 'store');
-        Route::get('/tags/edit/{tag}', 'edit');
-        Route::put('/tags/{tag}', 'update');
-        Route::get('/tags/delete/{tag}', 'destroy');
     });
     // Order Route
     Route::controller(OrderController::class)->group(function () {

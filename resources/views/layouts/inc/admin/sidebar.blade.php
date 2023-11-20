@@ -4,7 +4,7 @@
         <div class="media">
             <img src="" alt="..." width="65" class="mr-3 rounded-circle shadow-sm">
             <div class="media-body my-3">
-                <h5 class="m-0 text-muted">Nama</h5>
+                <h5 class="m-0 text-muted">{{Auth::user()->name}}</h5>
                 <small class="font-weight-light mb-0 text-success"><i class="fas fa-circle text-success"></i>
                     Online</small>
             </div>
@@ -12,6 +12,10 @@
     </div>
     <p class="text-muted font-weight-bold text-uppercase px-3 small pb-2 mb-0"><b>Main</b></p>
     <ul class="nav flex-column  mb-0">
+
+        @if(Auth::user()->role == 1)
+
+
         <li class="nav-item ">
             <a href="{{url('admin/dashboard')}}" class="nav-link active">
                 <i class="feather-home  fa-fw"></i>
@@ -81,5 +85,14 @@
                 Profile Web
             </a>
         </li>
+
+        @elseif(Auth::user()->role == 2)
+        <li class="nav-item">
+            <a href="{{url('admin/services')}}" class="nav-link">
+                <i class="feather-shopping-bag mr-3  fa-fw"></i>
+                Service
+            </a>
+        </li>
+        @endif
     </ul>
 </div>

@@ -3,10 +3,6 @@
 @section('content')
 
 
-
-
-
-
 <div class="p-3 mb-3">
     <div class="table-responsive">
         <div class="card">
@@ -80,7 +76,7 @@
 
 
     <div class="d-grid gap-2 mx-auto mt-3">
-        <a class="btn btn-primary" href="{{url('checkout')}}">Checkout</a>
+        <a class="btn btn-primary" href="{{url('admin/orders/admincheckout')}}">Checkout</a>
     </div>
 
 </div>

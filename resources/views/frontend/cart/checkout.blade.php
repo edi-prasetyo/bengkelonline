@@ -204,8 +204,8 @@
                     <div class="row">
                         <div class="col-md-6 ">
                             <label class="form-label">Pilih Merek</label>
-                            <select class="form-select @error('car_brand') is-invalid @enderror" id="car-dropdown"
-                                data-placeholder="Choose one thing" name="car_brand">
+                            <select class="form-select single-select-field @error('car_brand') is-invalid @enderror"
+                                id="car-dropdown" data-placeholder="Choose one thing" name="car_brand">
                                 <option></option>
                                 @foreach($brands as $key => $brand)
                                 <option value="{{$brand->id}}">{{$brand->name}}</option>
@@ -338,7 +338,10 @@ $('#car-dropdown').on('change', function () {
 
 });
 
-$( '#basic-usage' ).select2( {
+</script>
+
+<script>
+    $( '.single-select-field' ).select2( {
     theme: "bootstrap-5",
     width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
     placeholder: $( this ).data( 'placeholder' ),

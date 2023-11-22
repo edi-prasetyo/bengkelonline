@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Province;
 use App\Models\Service;
 use App\Models\ServiceItem;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -120,15 +123,23 @@ class OrderController extends Controller
         }
     }
 
+    public function admincheckout()
+    {
 
+
+        $brands = Brand::all();
+
+        $customers = User::where('role', 4)->get();
+        $admincart = session()->get('admincart');
+        if (!$admincart) {
+            return redirect('/admin/order/services')->with('success', 'Cart is Empty');
+        } else {
+            return view('admin.order.admincheckout', compact('customers', 'brands'));
+        }
+    }
 
 
     // End Cart
-
-
-
-
-
 
     public function confirmation(Request $request, int $order_id)
     {

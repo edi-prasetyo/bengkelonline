@@ -26,6 +26,7 @@
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 
 
+
 </head>
 
 <body>
@@ -54,6 +55,8 @@
 
     <link href="{{asset('admin/vendor/summernote/summernote-lite.min.css')}}" rel="stylesheet">
     <script src="{{asset('admin/vendor/summernote/summernote-lite.min.js')}}"></script>
+
+
     <script>
         $('#summernote').summernote({
             tabsize: 2

@@ -159,6 +159,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         // cart session
         Route::get('/orders/add-to-cart/{uuid}', 'addToAdminCart')->name('add.to.admincart');
         Route::get('/orders/admincart', 'admincart')->name('admincart');
+        Route::get('/orders/admincheckout', 'admincheckout')->name('admincheckout');
 
 
         Route::get('/orders/{order_id}', 'show');
@@ -182,13 +183,14 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::controller(ServiceController::class)->group(function () {
         Route::get('/services', 'index');
         Route::get('/services/create', 'create');
-        Route::get('/services/edit/{service_id}', 'edit');
-        Route::put('/services/{service_id}', 'update');
+        Route::post('/services', 'store');
+        Route::get('/services/edit/{service}', 'edit');
+        Route::put('/services/update/{id}', 'update');
         Route::get('/services/show/{service_id}', 'show');
         Route::post('/services/add_item', 'add_item');
         Route::get('/services/edit-item/{item_id}', 'editItem');
         Route::put('/services/update-item/{item_id}', 'updateItem');
-        Route::post('/services', 'store');
+
         Route::get('/services/delete/{service_id}', 'destroy');
         Route::get('/services/delete-item/{item_id}', 'destroy_item');
     });

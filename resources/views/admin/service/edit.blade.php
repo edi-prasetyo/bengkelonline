@@ -13,9 +13,10 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <form action="{{url('admin/services/' .$service->id)}}" method="POST" enctype="multipart/form-data">
+                <form action="{{url('admin/services/update/' .$service->id)}}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
+                    @method('put')
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -36,7 +37,7 @@
                         <label class="form-label">Image</label>
                         <input type="file" name="image" class="form-control">
                         <div class="col-md-4 my-3">
-                            <img src="{{$service->image}}" class="img-fluid">
+                            <img src="{{asset($service->image)}}" class="img-fluid">
                         </div>
                     </div>
                     <div class="mb-3">

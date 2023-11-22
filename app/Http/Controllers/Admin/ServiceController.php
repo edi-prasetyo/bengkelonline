@@ -57,14 +57,16 @@ class ServiceController extends Controller
         return redirect('admin/services')->with('message', 'Jasa telah di tambahkan');
     }
 
-    public function edit(int $service_id)
+    public function edit(Service $service)
     {
-        $service = Service::where('id', $service_id)->first();
+        // $service = Service::where('id', $service)->first();
+        // return $service;
         return view('admin.service.edit', compact('service'));
     }
-    public function update(Request $request, int $service_id)
+    public function update(Request $request, int $id)
     {
-        $service = Service::where('id', $service_id)->first();
+        $service = Service::where('id', $id)->first();
+        // return $service;
 
         $service->name = $request['name'];
         $service->description = $request['description'];
@@ -83,11 +85,10 @@ class ServiceController extends Controller
             $filename = time() . '.' . $ext;
             $file->move('uploads/service/', $filename);
             $service->image = $uploadPath . $filename;
-
-            $service->status = $request->status == true ? '1' : '0';
-            $service->update();
-            return redirect('admin/services')->with('message', 'Jasa telah di update');
         }
+        $service->status = $request->status == true ? '1' : '0';
+        $service->update();
+        return redirect('admin/services')->with('message', 'Jasa telah di update');
     }
 
     public function show(int $service_id)
@@ -164,11 +165,10 @@ class ServiceController extends Controller
             $filename = time() . '.' . $ext;
             $file->move('uploads/service/', $filename);
             $serviceItem->image = $uploadPath . $filename;
-
-            $serviceItem->status = $request->status == true ? '1' : '0';
-            $serviceItem->update();
-            return redirect('admin/services/show/' . $serviceItem->service_id)->with('message', 'Jasa telah di update');
         }
+        $serviceItem->status = $request->status == true ? '1' : '0';
+        $serviceItem->update();
+        return redirect('admin/services/show/' . $serviceItem->service_id)->with('message', 'Jasa telah di update');
     }
 
     public function destroy(int $service_id)

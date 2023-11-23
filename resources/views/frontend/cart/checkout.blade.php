@@ -85,14 +85,16 @@
                             </div>
                             <div class="col-md-6">
                                 <input type="radio" class="form-switch" name="home_service" data-id="b" id="two"
-                                    value="0">
+                                    value="1">
 
 
                                 <label for="two" class="box second">
                                     <div class="plan">
                                         <span class="circle"></span>
-                                        Service Dirumah<br>
-                                        Montir kami akan datang kelokasi mobil
+                                        <span>
+                                            <span class="h4"> Service Dirumah</span><br>
+                                            <small>Montir kami akan datang kelokasi mobil</small>
+                                        </span>
                                     </div>
 
                                 </label>

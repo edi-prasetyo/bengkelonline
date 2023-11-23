@@ -160,10 +160,14 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/orders/add-to-cart/{uuid}', 'addToAdminCart')->name('add.to.admincart');
         Route::get('/orders/admincart', 'admincart')->name('admincart');
         Route::get('/orders/admincheckout', 'admincheckout')->name('admincheckout');
-
+        Route::post('/orders/admin_orders', 'adminOrder')->name('adminOrder');
+        Route::get('/orders/admin_orders/success/{code}', 'success');
 
         Route::get('/orders/{order_id}', 'show');
         Route::post('/orders/confirmation/{order_id}', 'confirmation');
+
+        // Fetch User
+        Route::post('/orders/services/fetch-car', 'fetchCar')->name('fetchCar');
     });
     // Sliders Route
     Route::controller(SliderController::class)->group(function () {

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderFormRequest;
 use App\Models\Bank;
+use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +23,12 @@ class OrderController extends Controller
 
         $validatedData = $request->validated();
 
+        $province_id = $validatedData['province'];
+        $city_id = $validatedData['city'];
+
+        $province = Province::where('id', $province_id)->first();
+        $city = City::where('id', $city_id)->first();
+
         $code = Str::uuid()->toString(50);
         $invoice_number = random_int(100000, 999999);
         $order = new Order;
@@ -31,8 +39,8 @@ class OrderController extends Controller
         $order->invoice = $invoice_number;
         $order->code = $code;
         // $order->discount = $request['discount'];
-        $order->province = $validatedData['province'];
-        $order->city = $validatedData['city'] ?? null;
+        $order->province = $province->name;
+        $order->city = $city->name;
         $order->car_brand = $validatedData['car_brand'];
         $order->car_model = $validatedData['car_model'];
         $order->car_year = $validatedData['car_year'];

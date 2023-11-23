@@ -4,13 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\CarModel;
+use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Province;
 use App\Models\Service;
 use App\Models\ServiceItem;
 use App\Models\User;
+use App\Models\UserCar;
+use App\Models\UserDetail;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -125,22 +132,87 @@ class OrderController extends Controller
 
     public function admincheckout()
     {
-
-
         $brands = Brand::all();
-
-        $customers = User::where('role', 4)->get();
+        // $customers = User::where('role', 4)->get();
+        $customers = User::all();
         $admincart = session()->get('admincart');
         if (!$admincart) {
-            return redirect('/admin/order/services')->with('success', 'Cart is Empty');
+            return redirect('/admin/orders/service')->with('success', 'Cart is Empty');
         } else {
             return view('admin.order.admincheckout', compact('customers', 'brands'));
         }
     }
+    public function adminOrder(Request $request)
+    {
+        $user_id = $request['user_id'];
+        $customer = User::where('id', $user_id)->first();
+        $userDetail = UserDetail::where('user_id', $user_id)->first();
+        $province_id = $userDetail->province;
+        $province = Province::where('id', $province_id)->first();
+        $city = City::where('id', $province->id)->first();
 
+        $userCar = UserCar::where('user_id', $user_id)->first();
 
+        $code = Str::uuid()->toString(50);
+        $invoice_number = random_int(100000, 999999);
+        $order = new Order;
+
+        $order->user_id = $user_id;
+        $order->full_name = $userDetail->first_name;
+        $order->email = $customer->email;
+        $order->phone_number = $customer->whatsapp;
+        $order->invoice = $invoice_number;
+        $order->code = $code;
+        $order->province = $province->name;
+        $order->city = $city->name;
+        $order->car_brand = $userCar->brand;
+        $order->car_model = $userCar->model;
+        $order->car_year = $userCar->year;
+        $order->schedule_date = $request['schedule_date'];
+        $order->schedule_time = $request['schedule_time'];
+        $order->grand_total = $request['grand_total'];
+        $order->payment_method = $request['payment_method'];
+        $order->payment_status = $request['payment_status'];
+        $order->home_service = $request['home_service'];
+        $order->status = $request['status'];
+        $order->address = $request['address'];
+
+        $order->save();
+
+        $admincart = session()->get('admincart');
+        if (!$admincart) {
+            return redirect('/admin/orders/services')->with('message', 'Cart Empty');
+        } else {
+            foreach ($admincart as $cart_item) {
+                $data[] = [
+                    'service_id' => $cart_item['service_id'],
+                    'order_id' => $order->id,
+                    'quantity' => 1,
+                    'name' => $cart_item['name'],
+                    'price' => $cart_item['price'],
+                    'service_price' => $cart_item['service_price'],
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ];
+            }
+        }
+        DB::table('order_items')->insert($data);
+        $request->session()->forget('admincart');
+
+        return redirect('admin/orders/' . $order->id)->with('message', 'Order Berhasil Di Tambahkan');
+    }
+    public function success($code)
+    {
+        $order = Order::where('code', $code)->first();
+        $order_id = $order->id;
+        $order_items = DB::table('order_items')->where('order_id', $order_id)
+            ->join('services', 'services.id', '=', 'order_items.service_id')
+            ->select('order_items.*', 'services.name as service_name', 'services.service_price as service_price')
+            ->get();
+        // return $order_items;
+        return view('admin.order.success', compact('order', 'order_items'));
+    }
     // End Cart
-
     public function confirmation(Request $request, int $order_id)
     {
         $order = Order::findOrFail($order_id);
@@ -149,4 +221,14 @@ class OrderController extends Controller
         $order->update();
         return redirect()->back()->with('message', 'Pembayaran Terkonfirmasi!');
     }
+
+    // Fetch User
+    public function fetchCar(Request $request)
+    {
+        $data['usercars'] = UserCar::where("user_id", 1)
+            ->get(["id", "model",  "varian", "platnumber", "year"]);
+
+        return response()->json($data);
+    }
+    // $request->user_id
 }

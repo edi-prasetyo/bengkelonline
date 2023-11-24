@@ -204,7 +204,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::post('/customers', 'store');
         Route::get('/customers/edit/{service_id}', 'edit');
         Route::put('/customers/{service_id}', 'update');
-        Route::get('/customers/show/{service_id}', 'show');
-        Route::get('/customers/delete/{service_id}', 'destroy');
+        Route::get('/customers/cars/{user}', 'car');
+        Route::post('/customers/add-car/{user_id}', 'addCar');
+        Route::get('/customers/delete-car/{car_id}', 'destroy');
     });
 });

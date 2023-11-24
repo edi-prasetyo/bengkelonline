@@ -134,7 +134,7 @@ class OrderController extends Controller
     {
         $brands = Brand::all();
         // $customers = User::where('role', 4)->get();
-        $customers = User::all();
+        $customers = User::where('role', 4)->get();
         $admincart = session()->get('admincart');
         if (!$admincart) {
             return redirect('/admin/orders/service')->with('success', 'Cart is Empty');
@@ -225,7 +225,7 @@ class OrderController extends Controller
     // Fetch User
     public function fetchCar(Request $request)
     {
-        $data['usercars'] = UserCar::where("user_id", 1)
+        $data['usercars'] = UserCar::where("user_id", $request['user_id'])
             ->get(["id", "model",  "varian", "platnumber", "year"]);
 
         return response()->json($data);

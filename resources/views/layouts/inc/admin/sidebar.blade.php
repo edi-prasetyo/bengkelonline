@@ -2,7 +2,8 @@
     <div class="sidebar-heading text-transparent"> </div>
     <div class="py-4 px-3">
         <div class="media">
-            <img src="" alt="..." width="65" class="mr-3 rounded-circle shadow-sm">
+            <img src="{{asset('uploads/logo/default-avatar.jpg')}}" alt="..." width="65"
+                class="mr-3 rounded-circle shadow-sm">
             <div class="media-body my-3">
                 <h5 class="m-0 text-muted">{{Auth::user()->name}}</h5>
                 <small class="font-weight-light mb-0 text-success"><i class="fas fa-circle text-success"></i>
@@ -53,6 +54,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{url('admin/customers')}}" class="nav-link">
+                <i class="feather-users mr-3  fa-fw"></i>
+                Customer
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{url('admin/brands')}}" class="nav-link">
                 <i class="feather-archive mr-3  fa-fw"></i>
                 Brand
@@ -91,6 +98,12 @@
             <a href="{{url('admin/services')}}" class="nav-link">
                 <i class="feather-shopping-bag mr-3  fa-fw"></i>
                 Service
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{url('admin/orders')}}" class="nav-link">
+                <i class="feather-shopping-bag mr-3  fa-fw"></i>
+                Order
             </a>
         </li>
         @endif

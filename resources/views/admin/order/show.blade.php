@@ -63,15 +63,20 @@
                                         <img width="70%" class="img-fluid"
                                             src="{{asset('uploads/logo/' .$option_nav->logo)}}">
                                     </a>
-                                    <p class="mt-2">{{$option_nav->address}}
-                                        {{$option_nav->whatsapp}}<br>
-                                        {{$option_nav->email}}<br>
-                                        {{$option_nav->link}}<br>
+
+                                    <p class="mt-2"><i class="fa-solid fa-location-dot"></i>
+                                        {{$option_nav->address}}<br>
+                                        <i class="fa-solid fa-phone"></i> {{$option_nav->whatsapp}}<br>
+                                        <i class="fa-solid fa-envelope-circle-check"></i> {{$option_nav->email}}<br>
+                                        <i class="fa-solid fa-globe"></i> {{$option_nav->link}}<br>
                                     </p>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-center">
                                     <h1>INVOICE</h1>
-                                    <h4> NO : {{$order->invoice}}</h4>
+                                    @php
+                                    $invoice = str_pad($order->id, 6, "0", STR_PAD_LEFT);
+                                    @endphp
+                                    <h4> NO : {{$invoice}}</h4>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4 text-end">
                                     Nama : {{$order->full_name}}<br>
@@ -118,34 +123,71 @@
                                                 @endforeach
 
                                                 <tr>
-                                                    <td>&nbsp;</td>
-                                                    <td colspan="1" class="border-0">
-                                                        <p>
-                                                            Subtotal<br>
-                                                            Diskon<br>
-                                                            PPn<br>
-                                                        </p>
-                                                        <h5 class="text-dark"><strong>Grand Total</strong></h5>
+                                                    <td
+                                                        style="border-left: 1px solid Transparent!important;border-bottom: 1px solid Transparent!important;">
+                                                        &nbsp;</td>
+                                                    <td colspan="1">
+                                                        Subtotal
                                                     </td>
                                                     <td>
-                                                        <p>
-                                                            Rp. {{number_format($order->grand_total)}}<br>
-                                                            Rp. 0<br>
-                                                            Rp. 0<br>
-                                                        </p>
-                                                        <h5 class="text-dark">
-                                                            <strong>{{number_format($order->grand_total)}}</strong>
-                                                        </h5>
+                                                        Rp. {{number_format($order->grand_total)}}
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td
+                                                        style="border-left: 1px solid Transparent!important;border-bottom: 1px solid Transparent!important;">
+                                                        &nbsp;</td>
+                                                    <td colspan="1">
+                                                        Diskon
+                                                    </td>
+                                                    <td>
+                                                        Rp. 0
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="border-left: 1px solid Transparent!important;border-bottom: 1px solid Transparent!important;">
+                                                        &nbsp;</td>
+                                                    <td colspan="1">
+                                                        PPn
+                                                    </td>
+                                                    <td>
+                                                        Rp. 0
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td
+                                                        style="border-left: 1px solid Transparent!important;border-bottom: 1px solid Transparent!important;">
+                                                        &nbsp;</td>
+                                                    <td colspan="1">
+                                                        <span class="fw-bold">Grand Total</span>
+                                                    </td>
+                                                    <td>
+                                                        <strong>{{number_format($order->grand_total)}}</strong>
+                                                    </td>
+                                                </tr>
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    Hormat Kami,<br><br><br><br><br><br><br><br><br>
+
+
+
+
+                                    (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+                                </div>
+                            </div>
                             <!-- Row end -->
                         </div>
-                        <div class="invoice-footer">
+                        <div class="card-footer bg-white py-3 text-center mt-5">
                             Terima Kasih Telah menggunakan jasa layanan Kami
                         </div>
                     </div>
@@ -154,6 +196,10 @@
         </div>
     </div>
 </div>
+
+
+
+
 
 
 

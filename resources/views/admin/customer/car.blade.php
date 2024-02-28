@@ -126,6 +126,8 @@
                                 class="btn btn-sm btn-primary text-white">Edit</a>
                             <a href="{{url('admin/customers/cars/delete-car/' .$car->id)}}"
                                 class="btn btn-sm btn-danger text-white">Hapus</a>
+                            <a href="{{url('admin/customers/cars/history/' .$car->id)}}"
+                                class="btn btn-sm btn-danger text-white">Riwaayat Servis</a>
 
                         </td>
                     </tr>

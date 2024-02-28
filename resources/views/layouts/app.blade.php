@@ -43,28 +43,14 @@
 </body>
 
 <script src="{{asset('assets/vendor/offcanvas/offcanvas-navbar.js')}}"></script>
-<script src="{{asset('assets/js/jquery-3.6.3.min.js')}}"></script>
 <script src="{{asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('admin/vendor/jquery/jquery.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 
-
-<script src="{{asset('admin/vendor/autocomplete/jquery-ui.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
 
 
-
-{{-- <script type="text/javascript">
-  var nav = document.querySelector('nav');
-  
-        window.addEventListener('scroll', function () {
-          if (window.pageYOffset > 100) {
-            nav.classList.add('bg-white', 'shadow-sm');
-          } else {
-            nav.classList.remove('bg-white', 'shadow-sm');
-          }
-        });
-</script> --}}
 
 @yield('scripts')
 

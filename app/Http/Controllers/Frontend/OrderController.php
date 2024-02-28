@@ -21,29 +21,26 @@ class OrderController extends Controller
     public function orders(OrderFormRequest $request)
     {
 
+
         $validatedData = $request->validated();
-
-        $province_id = $validatedData['province'];
-        $city_id = $validatedData['city'];
-
-        $province = Province::where('id', $province_id)->first();
-        $city = City::where('id', $city_id)->first();
 
         $code = Str::uuid()->toString(50);
         $invoice_number = random_int(100000, 999999);
         $order = new Order;
-        // $order->user_id = $validatedData['user_id'];
         $order->full_name = $validatedData['full_name'];
         // $order->customer_email = $request['customer_email'];
         $order->phone_number = $validatedData['phone_number'];
         $order->invoice = $invoice_number;
         $order->code = $code;
         // $order->discount = $request['discount'];
-        $order->province = $province->name;
-        $order->city = $city->name;
-        $order->car_brand = $validatedData['car_brand'];
-        $order->car_model = $validatedData['car_model'];
-        $order->car_year = $validatedData['car_year'];
+
+        $order->province = $request['province'];
+
+        $order->city = $request['city'];
+        $order->brand = $validatedData['brand'];
+        $order->model = $validatedData['model'];
+        $order->year = $validatedData['year'];
+        $order->platnumber = $validatedData['platnumber'];
         $order->schedule_date = $validatedData['schedule_date'];
         $order->schedule_time = $validatedData['schedule_time'];
         $order->grand_total = $validatedData['grand_total'];
@@ -74,7 +71,6 @@ class OrderController extends Controller
         }
         DB::table('order_items')->insert($data);
         $request->session()->forget('cart');
-
 
         return redirect('orders/success/' . $order->code)->with('message', 'Order Successfully');
     }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\OptionController;
+use App\Http\Controllers\Admin\ProvinceController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
@@ -39,6 +40,7 @@ use App\Http\Controllers\HomeController;
 
 Auth::routes([
     'register' => true,
+    'verify' => true
 ]);
 
 Route::prefix('member')->middleware(['auth'])->group(function () {
@@ -113,6 +115,16 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/brands/show/{brand_id}', 'show');
         Route::post('/brands/add_model', 'add_model');
     });
+    // Province Route
+    Route::controller(ProvinceController::class)->group(function () {
+        Route::get('/provinces', 'index');
+        Route::get('/provinces/create', 'create');
+        Route::post('/provinces', 'store');
+        Route::get('/provinces/edit/{province}', 'edit');
+        Route::put('/provinces/{province}', 'update');
+        Route::get('/provinces/city/{id}', 'city');
+        Route::post('/provinces/city', 'store_city');
+    });
     // Type Route
     Route::controller(TypeController::class)->group(function () {
         Route::get('/types', 'index');
@@ -156,6 +168,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/orders/service/{id}', 'detail');
         Route::patch('/orders/update-cart', 'update')->name('update.admincart');
         Route::delete('/orders/remove-from-cart', 'remove')->name('remove.from.admincart');
+
+        Route::get('/orders/download/{order_id}', 'invoice')->name('invoice');
         // cart session
         Route::get('/orders/add-to-cart/{uuid}', 'addToAdminCart')->name('add.to.admincart');
         Route::get('/orders/admincart', 'admincart')->name('admincart');
@@ -205,7 +219,9 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/customers/edit/{service_id}', 'edit');
         Route::put('/customers/{service_id}', 'update');
         Route::get('/customers/cars/{user}', 'car');
+        Route::get('/customers/cars/history/{user_car_id}', 'history_service');
         Route::post('/customers/add-car/{user_id}', 'addCar');
+
         Route::get('/customers/delete-car/{car_id}', 'destroy');
     });
 });

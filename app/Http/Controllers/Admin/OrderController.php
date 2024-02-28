@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Brand;
-use App\Models\CarModel;
 use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -14,16 +14,20 @@ use App\Models\ServiceItem;
 use App\Models\User;
 use App\Models\UserCar;
 use App\Models\UserDetail;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::orderBy('id', 'desc')->paginate(10);
+        $orders = Order::orderBy('id', 'desc')
+            ->leftJoin('users', 'users.id', '=', 'orders.user_id')
+            ->select('orders.*', 'users.name as order_name')
+            ->paginate(10);
+        // return $orders;
         return view('admin.order.index', compact('orders'));
     }
     public function service()
@@ -50,6 +54,7 @@ class OrderController extends Controller
             ->join('services', 'services.id', '=', 'order_items.service_id')
             ->select('order_items.*', 'services.name as service_name', 'services.service_price as service_price')
             ->get();
+        // return $order_items;
         return view('admin.order.show', compact('order', 'order_items'));
     }
     // Start Cart Session
@@ -103,15 +108,13 @@ class OrderController extends Controller
     }
     public function admincart()
     {
-        // $coupon = Coupon::all();
-        // $userId =  Auth::user()->id;
-        // $saldo = Wallet::where('user_id', $userId)->first();
         return view('admin.order.admincart');
     }
     public function update(Request $request)
     {
-        if ($request->id and $request->quantity) {
+        if ($request->id and $request->price) {
             $admincart = session()->get('admincart');
+            $admincart[$request->id]["price"] = $request->price;
             $admincart[$request->id]["quantity"] = $request->quantity;
             session()->put('admincart', $admincart);
             session()->flash('success', 'Cart updated successfully');
@@ -147,9 +150,11 @@ class OrderController extends Controller
         $user_id = $request['user_id'];
         $customer = User::where('id', $user_id)->first();
         $userDetail = UserDetail::where('user_id', $user_id)->first();
-        $province_id = $userDetail->province;
+        $province_id = $userDetail->province_id;
+        $city_id = $userDetail->city_id;
+
         $province = Province::where('id', $province_id)->first();
-        $city = City::where('id', $province->id)->first();
+        $city = City::where('id', $city_id)->first();
 
         $userCar = UserCar::where('user_id', $user_id)->first();
 
@@ -157,24 +162,30 @@ class OrderController extends Controller
         $invoice_number = random_int(100000, 999999);
         $order = new Order;
 
+        $down_payment = $request['down_payment'];
+        $grand_total = $request['grand_total'] - $down_payment;
+
         $order->user_id = $user_id;
-        $order->full_name = $userDetail->first_name;
+        $order->full_name = $customer->name;
         $order->email = $customer->email;
         $order->phone_number = $customer->whatsapp;
         $order->invoice = $invoice_number;
         $order->code = $code;
         $order->province = $province->name;
         $order->city = $city->name;
-        $order->car_brand = $userCar->brand;
-        $order->car_model = $userCar->model;
-        $order->car_year = $userCar->year;
+        $order->brand = $userCar->brand;
+        $order->platnumber = $userCar->platnumber;
+        $order->model = $userCar->model;
+        $order->year = $userCar->year;
         $order->schedule_date = $request['schedule_date'];
         $order->schedule_time = $request['schedule_time'];
-        $order->grand_total = $request['grand_total'];
+        $order->down_payment = $down_payment;
+        $order->grand_total = $grand_total;
         $order->payment_method = $request['payment_method'];
         $order->payment_status = $request['payment_status'];
         $order->home_service = $request['home_service'];
         $order->status = $request['status'];
+        $order->kilometer = $request['kilometer'];
         $order->address = $request['address'];
 
         $order->save();
@@ -187,7 +198,7 @@ class OrderController extends Controller
                 $data[] = [
                     'service_id' => $cart_item['service_id'],
                     'order_id' => $order->id,
-                    'quantity' => 1,
+                    'quantity' => $cart_item['quantity'],
                     'name' => $cart_item['name'],
                     'price' => $cart_item['price'],
                     'service_price' => $cart_item['service_price'],
@@ -210,6 +221,7 @@ class OrderController extends Controller
             ->select('order_items.*', 'services.name as service_name', 'services.service_price as service_price')
             ->get();
         // return $order_items;
+
         return view('admin.order.success', compact('order', 'order_items'));
     }
     // End Cart
@@ -231,4 +243,29 @@ class OrderController extends Controller
         return response()->json($data);
     }
     // $request->user_id
+
+    // Load Pdf
+    public function invoice($order_id)
+    {
+
+        $order = Order::where('id', $order_id)->first();
+        $order_items = OrderItem::where('order_id', $order_id)
+            ->join('services', 'services.id', '=', 'order_items.service_id')
+            ->select('order_items.*', 'services.name as service_name', 'services.service_price as service_price')
+            ->get();
+        $banks = Bank::all();
+
+        $data = [
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y'),
+            'order' => $order,
+            'order_items' => $order_items,
+            'banks' => $banks
+        ];
+
+        // $pdf = Pdf::loadView('admin.order.invoice', $data);
+        // return $pdf->download($order->invoice . '.pdf');
+
+        return view('admin.order.invoice', $data);
+    }
 }

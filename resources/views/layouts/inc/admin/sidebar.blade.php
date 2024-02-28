@@ -29,18 +29,7 @@
                 Category
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{url('admin/types')}}" class="nav-link">
-                <i class="feather-grid mr-3  fa-fw"></i>
-                Type
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('admin/programs')}}" class="nav-link">
-                <i class="feather-gitlab mr-3  fa-fw"></i>
-                Program
-            </a>
-        </li>
+
         <li class="nav-item">
             <a href="{{url('admin/services')}}" class="nav-link">
                 <i class="feather-shopping-bag mr-3  fa-fw"></i>

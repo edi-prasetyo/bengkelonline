@@ -5,10 +5,16 @@
 
 <div class="container">
 
+    @if ($errors->any())
+    <div class="alert alert-warning">
+        @foreach ($errors->all() as $error)
+        <div>{{ $error }}</div>
+        @endforeach
+    </div>
+    @endif
 
     <div class="col-md-8 mx-auto">
         <!-- Offer alert -->
-
         <ul class="list-group mb-3">
             @php $total = 0 @endphp
             @if(session('cart'))
@@ -109,8 +115,8 @@
                         <div class="row">
                             <div class="col-md-6 ">
                                 <label class="form-label">Pilih Provinsi</label>
-                                <select class="form-select" id="country-dropdown" data-placeholder="Choose one thing"
-                                    name="province">
+                                <select class="form-select single-select-field" id="country-dropdown"
+                                    data-placeholder="Choose one thing" name="province">
                                     <option></option>
                                     @foreach($provinces as $key => $province)
                                     <option value="{{$province->id}}">{{$province->name}}</option>
@@ -120,7 +126,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Kota</label>
-                                <select id="state-dropdown" class="form-select" name="city">
+                                <select id="state-dropdown" class="form-select single-select-field" name="city">
                                 </select>
                             </div>
                             <div class="col-md-12">
@@ -153,8 +159,13 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Tanggal</label>
-                            <input type="text" name="schedule_date"
-                                class="form-control @error('schedule_date') is-invalid @enderror" id="datepicker">
+                            <div class="input-group">
+
+                                <input type="text" class="form-control @error('schedule_date') is-invalid @enderror"
+                                    id="datepicker" name="schedule_date">
+                                <span class="input-group-text" id="addon-wrapping"><i
+                                        class='bx bx-calendar-alt'></i></span>
+                            </div>
                             @error('schedule_date')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -206,14 +217,14 @@
                     <div class="row">
                         <div class="col-md-6 ">
                             <label class="form-label">Pilih Merek</label>
-                            <select class="form-select single-select-field @error('car_brand') is-invalid @enderror"
-                                id="car-dropdown" data-placeholder="Choose one thing" name="car_brand">
+                            <select class="form-select single-select-field @error('brand') is-invalid @enderror"
+                                id="car-dropdown" data-placeholder="Choose one thing" name="brand">
                                 <option></option>
                                 @foreach($brands as $key => $brand)
-                                <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                <option value="{{$brand->id }}">{{$brand->name}}</option>
                                 @endforeach
                             </select>
-                            @error('car_brand')
+                            @error('brand')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -221,20 +232,29 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Model Kendaraan</label>
-                            <select id="model-dropdown" class="form-select @error('car_model') is-invalid @enderror"
-                                name="car_model">
+                            <select id="model-dropdown" class="form-select @error('model') is-invalid @enderror"
+                                name="model">
                             </select>
-                            @error('car_model')
+                            @error('model')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <label class="form-label">Tahun Kendaraan</label>
-                            <input type="text" name="car_year"
-                                class="form-control @error('car_year') is-invalid @enderror">
-                            @error('car_year')
+                            <input type="text" name="year" class="form-control @error('year') is-invalid @enderror">
+                            @error('year')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Plat nomor</label>
+                            <input type="text" name="platnumber"
+                                class="form-control @error('platnumber') is-invalid @enderror">
+                            @error('platnumber')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -310,7 +330,7 @@ $('#country-dropdown').on('change', function () {
         success: function (result) {
             $('#state-dropdown').html('<option value="">-- Pilih Kota --</option>');
             $.each(result.cities, function (key, value) {
-                $("#state-dropdown").append('<option value="' + value.id + '">' + value.name + '</option>');
+                $("#state-dropdown").append('<option value="' + value.name + '">' + value.name + '</option>');
             });
         }
     });
@@ -359,9 +379,7 @@ $('#car-dropdown').on('change', function () {
   });
 });
 
-
 $(function(){
-    
   $('#datepicker').datepicker({
     format: 'yyyy-dd-mm',
     startDate: '+1d'
@@ -369,5 +387,7 @@ $(function(){
 });
 
 </script>
+
+
 
 @endsection

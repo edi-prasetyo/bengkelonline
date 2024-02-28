@@ -12,7 +12,6 @@ class FrontendController extends Controller
 {
     public function index()
     {
-
         $sliders = Slider::where(['status' => 1, 'type' => 0])->get();
         $categories = Category::where('status', 1)->get();
         $services = Service::all();

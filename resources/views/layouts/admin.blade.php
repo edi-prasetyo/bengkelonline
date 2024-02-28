@@ -47,11 +47,11 @@
     </div>
 
     <script src="{{asset('admin/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/js/jquery-3.6.3.min.js')}}"></script>
+    {{-- <script src="{{asset('assets/js/jquery-3.6.3.min.js')}}"></script> --}}
     <script src="{{asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
     </script>
-    <script src="{{asset('admin/vendor/autocomplete/jquery-ui.js')}}"></script>
+    {{-- <script src="{{asset('admin/vendor/autocomplete/jquery-ui.js')}}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
 
     <link href="{{asset('admin/vendor/summernote/summernote-lite.min.css')}}" rel="stylesheet">

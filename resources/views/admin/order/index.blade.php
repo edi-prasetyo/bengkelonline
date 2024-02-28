@@ -19,7 +19,8 @@
                 <thead>
                     <tr>
                         <th scope="col">Invoice</th>
-                        <th scope="col">ID Order</th>
+                        <th scope="col">Order</th>
+                        <th scope="col">Servis</th>
                         <th scope="col">Customer</th>
                         <th scope="col">Phone</th>
                         <th scope="col">Date</th>
@@ -35,10 +36,24 @@
                         $invoice = str_pad($data->id, 6, "0", STR_PAD_LEFT);
                         @endphp
                         <td>{{$invoice}}</td>
-                        <td>{{$data->invoice}}</td>
+                        <td>
+                            @if($data->user_id == null)
+                            Dari Website
+                            @else
+                            {{$data->order_name}}
+                            @endif
+
+                        </td>
+                        <td>
+                            @if($data->home_service == 0)
+                            Di Bengkel
+                            @else
+                            Di Rumah
+                            @endif
+                        </td>
                         <td>{{$data->full_name}}</td>
                         <td>{{$data->phone_number}}</td>
-                        <td>{{date('d M Y', strtotime($data->schedule_date))}}</td>
+                        <td>{{date('d-m-Y', strtotime($data->schedule_date))}}</td>
                         <td>
                             @if($data->payment_status == 1)
                             <i class="fa-solid fa-circle text-success" style="font-size: 7px;"></i> <span
@@ -50,7 +65,8 @@
                         </td>
                         <td>Rp. {{number_format($data->grand_total)}}</td>
                         <td>
-                            <a class="btn btn-success" href="{{url('admin/orders/' .$data->id)}}"> View</a>
+                            <a class="btn btn-success text-white btn-sm" href="{{url('admin/orders/' .$data->id)}}">
+                                View</a>
                         </td>
                     </tr>
                     @endforeach

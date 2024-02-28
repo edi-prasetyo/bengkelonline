@@ -62,10 +62,10 @@ class RegisterController extends Controller
             'password' => [
                 'required',
                 Password::min(8)
-                    ->letters()
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols()
+                // ->letters()
+                // ->mixedCase()
+                // ->numbers()
+                // ->symbols()
             ],
         ]);
     }
@@ -78,13 +78,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-
-
-
-
-
-
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],

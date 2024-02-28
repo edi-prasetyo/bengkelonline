@@ -10,11 +10,6 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Http\Requests\ProductFormRequest;
 use App\Models\ProductImage;
-use App\Models\Tag;
-use App\Models\TagParrent;
-use App\Models\Type;
-use Illuminate\Support\Facades\Auth;
-use Image;
 
 class ProductController extends Controller
 {

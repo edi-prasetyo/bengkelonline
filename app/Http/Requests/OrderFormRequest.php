@@ -33,21 +33,26 @@ class OrderFormRequest extends FormRequest
             ],
             'province' => [
                 'nullable',
-                'string'
             ],
             'city' => [
                 'nullable',
-                'string'
             ],
-            'car_brand' => [
+            'brand' => [
                 'required',
                 'string'
             ],
-            'car_model' => [
+            'model' => [
                 'required',
                 'string'
             ],
-            'car_year' => [
+            'platnumber' => [
+                'required',
+                'string'
+            ],
+            'kilometer' => [
+                'nullable',
+            ],
+            'year' => [
                 'required',
                 'string'
             ],

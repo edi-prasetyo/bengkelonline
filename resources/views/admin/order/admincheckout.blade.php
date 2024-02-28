@@ -196,7 +196,7 @@
                                 <div class="plan">
                                     <span class="circle"></span>
                                     <span>
-                                        <span class="h4"> Service Dirumah</span><br>
+                                        <span class="h4"> Service Dirumah/Kantor</span><br>
                                         <small>Montir kami akan datang kelokasi mobil</small>
                                     </span>
                                 </div>
@@ -287,7 +287,7 @@
         $(function() {
             $('#datepicker').datepicker({
                 format: 'yyyy-mm-dd',
-                startDate: '+1d'
+                //startDate: '+1d'
             });
         });
     </script>

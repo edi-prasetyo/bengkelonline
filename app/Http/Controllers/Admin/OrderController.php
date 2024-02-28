@@ -263,9 +263,9 @@ class OrderController extends Controller
             'banks' => $banks
         ];
 
-        // $pdf = Pdf::loadView('admin.order.invoice', $data);
-        // return $pdf->download($order->invoice . '.pdf');
+        $pdf = Pdf::loadView('admin.order.invoice', $data);
+        return $pdf->download($order->invoice . '.pdf');
 
-        return view('admin.order.invoice', $data);
+        // return view('admin.order.invoice', $data);
     }
 }

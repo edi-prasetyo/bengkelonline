@@ -113,7 +113,13 @@
                     @php
                         $invoice = str_pad($order->id, 6, '0', STR_PAD_LEFT);
                     @endphp
-                    <p style="font-size: 20px"><b>NO. INVOICE : {{ $invoice }}</b></p>
+                    <b>NO. INVOICE : {{ $invoice }}</b><br>
+                    Payment Status : @if ($order->payment_status == 0)
+                        <span style="color:red">Unpaid</span>
+                    @else
+                        <span style="color:green">Paid</span>
+                    @endif
+                    <br>
                     <small>Order ID : {{ $order->invoice }}</small>
                 </td>
             </tr>
@@ -233,8 +239,6 @@
                 <tbody>
 
                     <tr>
-
-
                         <td width="50%" style="padding: 3px;position: relative;height:150px;text-align:center;">
 
 

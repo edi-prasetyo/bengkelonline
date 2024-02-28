@@ -224,12 +224,43 @@
             </tbody>
         </table>
 
-        <h5>Note :</h5>
-        Pembayaran Transfer melalui Rekening : <br>
-        @foreach ($banks as $bank)
-            <b>{{ $bank->name }} {{ $bank->number }}</b><br>
-            {{ $bank->account }}
-        @endforeach
+
+
+        <div style="margin-top:50px;"></div>
+        <div style="text-align:center;margin:0 auto">
+
+            <table width="100%">
+                <tbody>
+
+                    <tr>
+
+
+                        <td width="50%" style="padding: 3px;position: relative;height:150px;text-align:center;">
+
+
+                            <h5>Note :</h5>
+                            Pembayaran Transfer melalui Rekening : <br>
+                            @foreach ($banks as $bank)
+                                <b>{{ $bank->name }} {{ $bank->number }}</b><br>
+                                {{ $bank->account }}
+                            @endforeach
+
+                            <div style="position: absolute;bottom: 7px;left: 0;right: 0;"><b></b></div>
+                        </td>
+                        <td width="50%" style="padding: 3px;position: relative;height:150px;text-align:center;">
+                            <h5> Hormat Kami</h5>
+
+                            <img width="30%" src="https://bengkelonline.com/uploads/logo/stamp-signature.png">
+
+                            <div style="position: absolute;bottom: 0;left: 0;right: 0;">
+                                <b> Salim Santoso</b>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         {{-- <div style="margin-top:50px;"></div>
         <div style="text-align:center;margin:0 auto">
             <h5> Hormat Kami</h5>

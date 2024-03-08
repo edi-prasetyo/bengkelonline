@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Bank;
 use App\Models\Brand;
+use App\Models\CarModel;
 use App\Models\City;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -54,7 +55,7 @@ class OrderController extends Controller
             ->join('services', 'services.id', '=', 'order_items.service_id')
             ->select('order_items.*', 'services.name as service_name', 'services.service_price as service_price')
             ->get();
-        // return $order_items;
+        // return $order;
         return view('admin.order.show', compact('order', 'order_items'));
     }
     // Start Cart Session
@@ -156,7 +157,11 @@ class OrderController extends Controller
         $province = Province::where('id', $province_id)->first();
         $city = City::where('id', $city_id)->first();
 
-        $userCar = UserCar::where('user_id', $user_id)->first();
+        $car_model_id = $request['car_model'];
+
+        $car_model = UserCar::where('id', $car_model_id)->first();
+
+
 
         $code = Str::uuid()->toString(50);
         $invoice_number = random_int(100000, 999999);
@@ -173,10 +178,10 @@ class OrderController extends Controller
         $order->code = $code;
         $order->province = $province->name;
         $order->city = $city->name;
-        $order->brand = $userCar->brand;
-        $order->platnumber = $userCar->platnumber;
-        $order->model = $userCar->model;
-        $order->year = $userCar->year;
+        $order->brand = $car_model->brand;
+        $order->platnumber = $car_model->platnumber;
+        $order->model = $car_model->model;
+        $order->year = $car_model->year;
         $order->schedule_date = $request['schedule_date'];
         $order->schedule_time = $request['schedule_time'];
         $order->down_payment = $down_payment;
@@ -267,5 +272,10 @@ class OrderController extends Controller
         return $pdf->download($order->invoice . '.pdf');
 
         // return view('admin.order.invoice', $data);
+    }
+
+    // Global Invoices
+    public function global()
+    {
     }
 }

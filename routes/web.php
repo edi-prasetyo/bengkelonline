@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\InventoryController;
+use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TypeController;
@@ -183,6 +185,15 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         // Fetch User
         Route::post('/orders/services/fetch-car', 'fetchCar')->name('fetchCar');
     });
+    // Invoice Route
+    Route::controller(InvoiceController::class)->group(function () {
+        Route::get('/invoices', 'index');
+        Route::get('/invoices/order', 'order');
+        Route::get('/orders/service/{id}', 'detail');
+        Route::patch('/invoices/update-cart', 'update')->name('update.invoicecart');
+        Route::delete('/invoices/remove-from-cart', 'remove')->name('remove.from.invoicecart');
+        Route::get('/invoices/add-to-cart/{id}', 'addToCartInvoice')->name('add.to.invoicecart');
+    });
     // Sliders Route
     Route::controller(SliderController::class)->group(function () {
         Route::get('/sliders', 'index');
@@ -221,7 +232,14 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/customers/cars/{user}', 'car');
         Route::get('/customers/cars/history/{user_car_id}', 'history_service');
         Route::post('/customers/add-car/{user_id}', 'addCar');
-
         Route::get('/customers/delete-car/{car_id}', 'destroy');
+    });
+    // Inventories
+    Route::controller(InventoryController::class)->group(function () {
+        Route::get('/inventories', 'index');
+        Route::get('/inventories/item/{id}', 'item');
+        Route::get('/inventories/stock/{service_item_id}', 'stock');
+        Route::get('/inventories/stock/create/{service_item_id}', 'create');
+        Route::post('/inventories/stock/store/{service_item_id}', 'store');
     });
 });

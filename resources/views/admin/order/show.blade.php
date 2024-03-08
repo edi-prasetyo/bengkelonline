@@ -166,7 +166,26 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <table width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding: 3px">
 
+                                                        <h3>Detail Kendaraan</h3>
+                                                        {{ $order->brand }} {{ $order->model }} {{ $order->platnumber }}
+                                                        - {{ $order->year }} <br>
+                                                        Odometer : <b>{{ number_format($order->kilometer) }} km </b> <br>
+                                                        Tanggal Servis : <b>
+                                                            {{ date('d M Y', strtotime($order->schedule_date)) }}</b>
+
+                                                    </td>
+                                                    <td style="padding: 3px">
+
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <div class="col-md-6 text-center">
                                         Hormat Kami,<br><br><br><br><br><br><br><br><br>

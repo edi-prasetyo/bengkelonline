@@ -159,7 +159,7 @@
                     <div class="form-group mb-3 col-md-6">
                         <label class="form-label">Kilometer</label>
                         <input class="form-control" name="kilometer" required>
-                        @error('car_model')
+                        @error('kilometer')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

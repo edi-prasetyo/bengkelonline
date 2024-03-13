@@ -47,6 +47,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ url('admin/invoices') }}" class="nav-link">
+                    <i class="feather-file-text mr-3  fa-fw"></i>
+                    Invoice
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{ url('admin/brands') }}" class="nav-link">
                     <i class="feather-archive mr-3  fa-fw"></i>
                     Brand

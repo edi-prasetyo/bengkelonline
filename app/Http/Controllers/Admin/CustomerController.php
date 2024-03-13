@@ -77,6 +77,9 @@ class CustomerController extends Controller
     }
     public function addCar(Request $request, int $user_id)
     {
+        $validated = $request->validate([
+            'platnumber' => 'required|unique:user_cars',
+        ]);
 
         $brand_id = $request['brand_id'];
         $brand = Brand::where('id', $brand_id)->first();
@@ -88,7 +91,7 @@ class CustomerController extends Controller
         $userCar->model = $request['car_model'];
         $userCar->varian = $request['varian'];
         $userCar->year = $request['car_year'];
-        $userCar->platnumber = $request['platnumber'];
+        $userCar->platnumber = $validated['platnumber'];
 
         $userCar->save();
         return redirect()->back()->with('success', 'Car added successfully!');

@@ -94,10 +94,6 @@ class RegisterController extends Controller
         UserDetail::create([
             'user_id' => $user->id,
         ]);
-        UserCar::create([
-            'user_id' => $user->id,
-        ]);
-
         return $user;
     }
 }

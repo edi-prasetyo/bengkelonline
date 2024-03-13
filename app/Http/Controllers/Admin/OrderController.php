@@ -158,10 +158,7 @@ class OrderController extends Controller
         $city = City::where('id', $city_id)->first();
 
         $car_model_id = $request['car_model'];
-
         $car_model = UserCar::where('id', $car_model_id)->first();
-
-
 
         $code = Str::uuid()->toString(50);
         $invoice_number = random_int(100000, 999999);

@@ -82,9 +82,9 @@ class InvoiceController extends Controller
         $customers = User::where('role', 4)->get();
         $invoicecart = session()->get('invoicecart');
         if (!$invoicecart) {
-            return redirect('/admin/orders/service')->with('success', 'Cart is Empty');
+            return redirect('/admin/invoices')->with('success', 'Cart is Empty');
         } else {
-            return view('admin.order.admincheckout', compact('customers', 'brands'));
+            return view('admin.invoice.invoicecheckout', compact('customers'));
         }
     }
 }

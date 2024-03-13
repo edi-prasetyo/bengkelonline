@@ -41,8 +41,9 @@ use App\Http\Controllers\HomeController;
 // });
 
 Auth::routes([
-    'register' => true,
-    'verify' => true
+    'register' => false, // Registration Routes...
+    'reset' => false, // Password Reset Routes...
+    'verify' => false, // Email Verification Routes...
 ]);
 
 Route::prefix('member')->middleware(['auth'])->group(function () {
@@ -193,6 +194,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::patch('/invoices/update-cart', 'update')->name('update.invoicecart');
         Route::delete('/invoices/remove-from-cart', 'remove')->name('remove.from.invoicecart');
         Route::get('/invoices/add-to-cart/{id}', 'addToCartInvoice')->name('add.to.invoicecart');
+        Route::get('/invoices/invoicecheckout', 'invoicecheckout')->name('invoicecheckout');
     });
     // Sliders Route
     Route::controller(SliderController::class)->group(function () {

@@ -80,7 +80,6 @@ class InvoiceController extends Controller
                 session()->put('invoicecart', $invoicecart);
             }
 
-
             $orderDetail = Order::where('id', $request->id)->first();
             $orderDetail->status = 0;
             $orderDetail->update();

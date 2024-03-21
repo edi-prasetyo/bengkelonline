@@ -36,7 +36,10 @@
                                             ->where('service_item_id', $data->id)
                                             ->first();
                                     @endphp
-                                    {{ $service_item->stock }}
+                                    @if ($service_item == null)
+                                    @else
+                                        {{ $service_item->stock }}
+                                    @endif
                                 </td>
 
                                 <td>

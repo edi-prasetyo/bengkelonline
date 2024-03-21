@@ -26,7 +26,7 @@ class InvoiceController extends Controller
     }
     public function order()
     {
-        $orders = Order::orderBy('id', 'desc')->where(['status' => 0, 'payment_status' => 1])->paginate(10);
+        $orders = Order::orderBy('id', 'desc')->where(['status' => 0, 'payment_status' => 0])->paginate(10);
         return view('admin.invoice.order', compact('orders'));
     }
     // Start Cart Session

@@ -131,6 +131,7 @@ class ServiceController extends Controller
         }
 
         $serviceItem->status = $request->status == true ? '1' : '0';
+        $serviceItem->internal = $request->internal == true ? '1' : '0';
         $serviceItem->save();
         return redirect()->back()->with('message', '<div class="alert alert-success">data Item telah di tambahkan</div>');
     }
@@ -167,6 +168,7 @@ class ServiceController extends Controller
             $serviceItem->image = $uploadPath . $filename;
         }
         $serviceItem->status = $request->status == true ? '1' : '0';
+        $serviceItem->internal = $request->internal == true ? '1' : '0';
         $serviceItem->update();
         return redirect('admin/services/show/' . $serviceItem->service_id)->with('message', 'Jasa telah di update');
     }

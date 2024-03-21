@@ -19,13 +19,14 @@ class InventoryController extends Controller
     }
     public function item($id)
     {
-        $service_items = ServiceItem::where('service_id', $id)->paginate(50);
+        $service_items = ServiceItem::where(['service_id' => $id, 'internal' => 1])->paginate(50);
+
         return view('admin.inventory.item', compact('service_items'));
     }
     public function stock($service_item_id)
     {
-        $service_item = ServiceItem::where('id', $service_item_id)->first();
-        $inventories = Inventory::where('service_item_id', $service_item_id)->paginate(20);
+        $service_item = ServiceItem::orderBy('id', 'desc')->where('id', $service_item_id)->first();
+        $inventories = Inventory::orderBy('id', 'desc')->where('service_item_id', $service_item_id)->paginate(20);
         return view('admin.inventory.stock', compact('service_item', 'inventories'));
     }
     public function create($service_item_id)
@@ -37,16 +38,18 @@ class InventoryController extends Controller
     {
         $uuid = Str::uuid();
 
-        $service_item = ServiceItem::where('id', $service_item_id)->first();
-        $stock = $service_item->stock;
+        $service_item = Inventory::orderBy('id', 'desc')->where('service_item_id', $service_item_id)->first();
+        // $stock = $service_item->stock;
         $incoming = $request['incoming'];
-        $finalstock = $stock +  $incoming;
+
+        $finalstock = $service_item->stock +  $incoming;
 
         $inventory = new Inventory();
 
         $inventory->user_id = Auth::user()->id;
+        $inventory->user_name = Auth::user()->name;
         $inventory->uuid = $uuid;
-        $inventory->service_item_id = $service_item->id;
+        $inventory->service_item_id = $service_item_id;
         $inventory->date = $request['date'];
         $inventory->description = $request['description'];
         $inventory->incoming = $incoming;
@@ -55,9 +58,9 @@ class InventoryController extends Controller
 
         $inventory->save();
 
-        $service_item->stock = $finalstock;
-        $service_item->update();
+        // $service_item->stock = $finalstock;
+        // $service_item->update();
 
-        return redirect('admin/inventores/stock/' . $service_item_id)->with('message', 'Data Stok telah di tambahkan');
+        return redirect('admin/inventories/stock/' . $service_item_id)->with('message', 'Data Stok telah di tambahkan');
     }
 }

@@ -20,6 +20,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Tanggal</th>
+                            <th scope="col">Created By</th>
                             <th width="15%">Keterangan</th>
                             <th width="15%">Masuk</th>
                             <th width="15%">Keluar</th>
@@ -30,7 +31,8 @@
                         @foreach ($inventories as $data)
                             <tr>
 
-                                <td>{{ $data->date }}</td>
+                                <td>{{ date('d-m-Y', strtotime($data->date)) }}</td>
+                                <td> {{ $data->user_name }}</td>
                                 <td> {{ $data->description }}</td>
                                 <td> {{ $data->incoming }}</td>
                                 <td> {{ $data->outcoming }}</td>

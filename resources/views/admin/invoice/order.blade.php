@@ -69,14 +69,7 @@
                 {{ $orders->links() }}
             </div>
 
-
-            <div class="col-md-12 p-5">
-                {{ $orders->links() }}
-            </div>
-
         </div>
-
-
 
 
         <div class="col-md-4">
@@ -106,12 +99,12 @@
 
 
                                                     <div class="col-md-8">
-                                                        <div class="nomargin">{{ $details['fullname'] }}</div>
+                                                        <div class="nomargin">{{ $details['order_id'] }}</div>
 
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td data-th="Subtotal" class="text-center"> {{ $details['order_id'] }}
+                                            <td data-th="Subtotal" class="text-center"> {{ $details['grand_total'] }}
 
                                             </td>
                                             <td data-th="Quantity" class="text-center"> <input type="number"
@@ -157,7 +150,7 @@
 
 
                 <div class="d-grid gap-2 mx-auto mt-3">
-                    <a class="btn btn-primary" href="{{ url('admin/orders/admincheckout') }}">Checkout</a>
+                    <a class="btn btn-primary" href="{{ url('admin/invoices/invoicecheckout') }}">Checkout</a>
                 </div>
 
             </div>

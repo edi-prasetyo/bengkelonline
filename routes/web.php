@@ -181,7 +181,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/orders/admin_orders/success/{code}', 'success');
 
         Route::get('/orders/{order_id}', 'show');
-        Route::post('/orders/confirmation/{order_id}', 'confirmation');
+        Route::get('/orders/confirmation/{order_id}', 'confirmation');
 
         // Fetch User
         Route::post('/orders/services/fetch-car', 'fetchCar')->name('fetchCar');
@@ -190,11 +190,13 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::controller(InvoiceController::class)->group(function () {
         Route::get('/invoices', 'index');
         Route::get('/invoices/order', 'order');
-        Route::get('/orders/service/{id}', 'detail');
         Route::patch('/invoices/update-cart', 'update')->name('update.invoicecart');
         Route::delete('/invoices/remove-from-cart', 'remove')->name('remove.from.invoicecart');
         Route::get('/invoices/add-to-cart/{id}', 'addToCartInvoice')->name('add.to.invoicecart');
         Route::get('/invoices/invoicecheckout', 'invoicecheckout')->name('invoicecheckout');
+        Route::post('/invoices/invoice_orders', 'invoiceOrder')->name('invoiceOrder');
+        Route::get('/invoices/detail/{id}', 'show')->name('invoiceShow');
+        Route::get('/invoices/download/{invoice_id}', 'download')->name('invoiceDownload');
     });
     // Sliders Route
     Route::controller(SliderController::class)->group(function () {

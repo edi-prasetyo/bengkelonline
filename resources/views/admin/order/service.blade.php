@@ -67,6 +67,7 @@
 
                                                     <div class="col-md-8">
                                                         <div class="nomargin">{{ $details['name'] }}</div>
+                                                        <div class="nomargin">{{ $details['service_item_id'] }}</div>
 
                                                     </div>
                                                 </div>

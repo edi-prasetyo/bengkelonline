@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-header bg-white d-flex justify-content-between align-items-start">
                 <h4 class="my-auto">Data Stok Barang</h4>
-                <a href="{{ url('admin/invoices/order') }}" class="btn btn-success text-white">Tambah Barang</a>
+
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -31,7 +31,12 @@
 
 
                                 <td>
-                                    {{ $data->stock }}
+                                    @php
+                                        $service_item = App\Models\Inventory::orderBy('id', 'desc')
+                                            ->where('service_item_id', $data->id)
+                                            ->first();
+                                    @endphp
+                                    {{ $service_item->stock }}
                                 </td>
 
                                 <td>

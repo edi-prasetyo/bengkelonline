@@ -7,6 +7,7 @@ use App\Models\Bank;
 use App\Models\Brand;
 use App\Models\CarModel;
 use App\Models\City;
+use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Province;
@@ -19,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -64,6 +66,7 @@ class OrderController extends Controller
         $serviceDetail = ServiceItem::where('uuid', $uuid)->first();
         $id = $serviceDetail->id;
         $service_id = $serviceDetail->service_id;
+
         $service = Service::where('id', $service_id)->first();
         if (!$service) {
             abort(404);
@@ -76,6 +79,7 @@ class OrderController extends Controller
                     "name" => $serviceDetail->name,
                     "uuid" => $serviceDetail->uuid,
                     "service_id" => $service_id,
+                    "service_item_id" => $id,
                     "service_price" => $service->service_price,
                     "quantity" => 1,
                     "price" => $serviceDetail->price,
@@ -98,6 +102,7 @@ class OrderController extends Controller
             "name" => $serviceDetail->name,
             "uuid" => $serviceDetail->uuid,
             "service_id" => $service_id,
+            "service_item_id" => $id,
             "service_price" => $service->service_price,
             "quantity" => 1,
             "price" => $serviceDetail->price,
@@ -196,6 +201,10 @@ class OrderController extends Controller
         if (!$admincart) {
             return redirect('/admin/orders/services')->with('message', 'Cart Empty');
         } else {
+
+            $uuid = Str::uuid();
+
+
             foreach ($admincart as $cart_item) {
                 $data[] = [
                     'service_id' => $cart_item['service_id'],
@@ -207,10 +216,27 @@ class OrderController extends Controller
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ];
+                $stock_sekarang = Inventory::where('service_item_id', $cart_item['service_item_id'])->get();
+                foreach ($stock_sekarang as $stock) {
+                    $update_stock = $stock->stock - $cart_item['quantity'];
+                }
+                $inventory[] = [
+                    'uuid' => $uuid,
+                    'user_id' => Auth::user()->id,
+                    'user_name' => Auth::user()->name,
+                    'description' => 'Penjualan dengan No Invoice' . $order->invoice,
+                    'service_item_id' => $cart_item['service_item_id'],
+                    'date' => date('Y-m-d'),
+                    'incoming' => 0,
+                    'outcoming' =>  $cart_item['quantity'],
+                    'stock' => $update_stock
+                ];
             }
         }
         DB::table('order_items')->insert($data);
+        DB::table('inventories')->insert($inventory);
         $request->session()->forget('admincart');
+
 
         return redirect('admin/orders/' . $order->id)->with('message', 'Order Berhasil Di Tambahkan');
     }
@@ -222,17 +248,17 @@ class OrderController extends Controller
             ->join('services', 'services.id', '=', 'order_items.service_id')
             ->select('order_items.*', 'services.name as service_name', 'services.service_price as service_price')
             ->get();
-        // return $order_items;
+        return $order_items;
 
         return view('admin.order.success', compact('order', 'order_items'));
     }
     // End Cart
-    public function confirmation(Request $request, int $order_id)
+    public function confirmation(int $order_id)
     {
         $order = Order::findOrFail($order_id);
-        $order->payment_status = $request['payment_status'];
-        $order->status = $request['status'];
+        $order->payment_status = 1;
         $order->update();
+
         return redirect()->back()->with('message', 'Pembayaran Terkonfirmasi!');
     }
 
@@ -269,10 +295,5 @@ class OrderController extends Controller
         return $pdf->download($order->invoice . '.pdf');
 
         // return view('admin.order.invoice', $data);
-    }
-
-    // Global Invoices
-    public function global()
-    {
     }
 }

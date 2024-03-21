@@ -37,6 +37,7 @@
                                             ->first();
                                     @endphp
                                     @if ($service_item == null)
+                                        0
                                     @else
                                         {{ $service_item->stock }}
                                     @endif

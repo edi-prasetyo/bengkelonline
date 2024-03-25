@@ -176,7 +176,7 @@
                 @foreach ($invoice_items as $item)
                     <tr>
                         <td>
-
+                            {{ date('d M Y', strtotime($item->order_date)) }} <br>
                             {{ $item->car_brand }} {{ $item->car_model }} -
                             {{ $item->car_number }} <br>
 

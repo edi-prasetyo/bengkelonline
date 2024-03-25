@@ -120,6 +120,7 @@
                         <span style="color:green">Paid</span>
                     @endif
                     <br>
+                    Invoice Date : {{ date('d-m-Y', strtotime($invoice->invoice_date)) }}
 
                 </td>
             </tr>

@@ -96,6 +96,11 @@
                     </div>
 
                     <div class="form-group mb-3 col-md-6">
+                        <label class="form-label">Tanggal Invoice</label>
+                        <input type="date" class="form-control" name="invoice_date">
+                    </div>
+
+                    <div class="form-group mb-3 col-md-6">
                         <label class="form-label">Down Payment</label>
                         <input class="form-control" name="down_payment">
                     </div>

@@ -79,7 +79,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4 text-end">
                                         Nama : {{ $invoice->customer_name }}<br>
-                                        Tanggal Invoice : {{ $invoice->created_at }}<br>
+                                        Tanggal Invoice : {{ date('d-m-Y', strtotime($invoice->invoice_date)) }}<br>
 
                                     </div>
                                 </div>

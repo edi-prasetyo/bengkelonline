@@ -133,6 +133,7 @@ class InvoiceController extends Controller
 
 
         $invoice->down_payment = $down_payment;
+        $invoice->invoice_date = $request['invoice_date'];
         $invoice->payment_method = $request['payment_method'];
         $invoice->payment_status = $request['payment_status'];
 

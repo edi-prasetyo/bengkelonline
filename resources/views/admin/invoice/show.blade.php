@@ -106,7 +106,9 @@
                                                         <tr>
 
                                                             <td>
-                                                                {{ $item->car_brand }} {{ $item->car_model }} -
+                                                                {{ date('d M Y', strtotime($item->order_date)) }} <br>
+                                                                {{ $item->car_brand }}
+                                                                {{ $item->car_model }} -
                                                                 {{ $item->car_number }} <br>
 
                                                                 @php $orders =  App\Models\OrderItem::where('order_id', $item->order_id)->get(); @endphp

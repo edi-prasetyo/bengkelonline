@@ -177,7 +177,7 @@ class InvoiceController extends Controller
     {
 
         $invoice = Invoice::where('id', $invoice_id)->first();
-        $invoice_items = InvoiceItem::select('invoice_items.*', 'orders.brand as car_brand', 'orders.model as car_model', 'orders.platnumber as car_number')
+        $invoice_items = InvoiceItem::select('invoice_items.*', 'orders.brand as car_brand', 'orders.model as car_model',  'orders.schedule_date as order_date', 'orders.platnumber as car_number')
             ->where('invoice_id', $invoice_id)
             ->join('orders', 'orders.id', '=', 'invoice_items.order_id')
             ->get();

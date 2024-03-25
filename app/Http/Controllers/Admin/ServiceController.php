@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceFormRequest;
 use App\Http\Requests\ServiceItemFormRequest;
+use App\Models\Inventory;
 use Illuminate\Support\Str;
 use App\Models\Service;
 use App\Models\ServiceItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 
@@ -133,6 +135,20 @@ class ServiceController extends Controller
         $serviceItem->status = $request->status == true ? '1' : '0';
         $serviceItem->internal = $request->internal == true ? '1' : '0';
         $serviceItem->save();
+
+
+        $inventory = new Inventory();
+        $inventory->user_id = Auth::user()->id;
+        $inventory->user_name = Auth::user()->name;
+        $inventory->uuid = $uuid;
+        $inventory->service_item_id = $serviceItem->id;
+        $inventory->date = $serviceItem->created_at;
+        $inventory->description = 'Initial Stock - ' . $serviceItem->name;
+        $inventory->incoming = 0;
+        $inventory->outcoming = 0;
+        $inventory->stock = 0;
+        $inventory->save();
+
         return redirect()->back()->with('message', '<div class="alert alert-success">data Item telah di tambahkan</div>');
     }
 

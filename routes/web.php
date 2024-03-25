@@ -245,5 +245,6 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/inventories/stock/{service_item_id}', 'stock');
         Route::get('/inventories/stock/create/{service_item_id}', 'create');
         Route::post('/inventories/stock/store/{service_item_id}', 'store');
+        Route::post('/inventories/stock/reduce_store/{service_item_id}', 'reduce_store');
     });
 });

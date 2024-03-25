@@ -63,4 +63,33 @@ class InventoryController extends Controller
 
         return redirect('admin/inventories/stock/' . $service_item_id)->with('message', 'Data Stok telah di tambahkan');
     }
+    public function reduce_store(Request $request, $service_item_id)
+    {
+        $uuid = Str::uuid();
+
+        $service_item = Inventory::orderBy('id', 'desc')->where('service_item_id', $service_item_id)->first();
+        // $stock = $service_item->stock;
+        $outcoming = $request['outcoming'];
+
+        $finalstock = $service_item->stock -  $outcoming;
+
+        $inventory = new Inventory();
+
+        $inventory->user_id = Auth::user()->id;
+        $inventory->user_name = Auth::user()->name;
+        $inventory->uuid = $uuid;
+        $inventory->service_item_id = $service_item_id;
+        $inventory->date = $request['date'];
+        $inventory->description = $request['description'];
+        $inventory->incoming = 0;
+        $inventory->outcoming = $outcoming;
+        $inventory->stock = $finalstock;
+
+        $inventory->save();
+
+        // $service_item->stock = $finalstock;
+        // $service_item->update();
+
+        return redirect('admin/inventories/stock/' . $service_item_id)->with('message', 'Data Stok telah di tambahkan');
+    }
 }

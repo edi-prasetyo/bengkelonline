@@ -144,8 +144,9 @@
                 data: {
                     _token: '{{ csrf_token() }}',
                     id: ele.parents("tr").attr("data-id"),
-                    price: ele.parents("tr").find(".price").val(),
                     quantity: ele.parents("tr").find(".quantity").val(),
+                    price: ele.parents("tr").find(".price").val(),
+
                 },
                 success: function(response) {
                     window.location.reload();

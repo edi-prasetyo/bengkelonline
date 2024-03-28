@@ -82,7 +82,7 @@ class OrderController extends Controller
                     "service_item_id" => $id,
                     "service_price" => $service->service_price,
                     "quantity" => 1,
-                    "price" => $serviceDetail->price,
+                    "price" => 0,
                     "short_description" => $serviceDetail->short_description,
                     "photo" => $serviceDetail->image
                 ]
@@ -105,7 +105,7 @@ class OrderController extends Controller
             "service_item_id" => $id,
             "service_price" => $service->service_price,
             "quantity" => 1,
-            "price" => $serviceDetail->price,
+            "price" => 0,
             "short_description" => $serviceDetail->short_description,
             "photo" => $serviceDetail->image
         ];

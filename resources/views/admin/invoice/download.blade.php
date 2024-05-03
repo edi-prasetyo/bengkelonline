@@ -184,7 +184,7 @@
                             @foreach ($orders as $order)
                                 <ul>
                                     <li>
-                                        {{ $order->name }} -
+                                        {{ $order->service_name }} {{ $order->name }} -
                                         Rp. {{ number_format($order->price) }} x
                                         {{ $order->quantity }}
                                     </li>

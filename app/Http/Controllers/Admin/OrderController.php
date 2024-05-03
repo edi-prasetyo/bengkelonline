@@ -220,20 +220,17 @@ class OrderController extends Controller
                 foreach ($stock_sekarang as $stock) {
                     $update_stock = $stock->stock - $cart_item['quantity'];
                 }
-                if ($update_stock == null) {
-                } else {
-                    $inventory[] = [
-                        'uuid' => $uuid,
-                        'user_id' => Auth::user()->id,
-                        'user_name' => Auth::user()->name,
-                        'description' => 'Penjualan dengan No Invoice' . $order->invoice,
-                        'service_item_id' => $cart_item['service_item_id'],
-                        'date' => date('Y-m-d'),
-                        'incoming' => 0,
-                        'outcoming' =>  $cart_item['quantity'],
-                        'stock' => $update_stock
-                    ];
-                }
+                $inventory[] = [
+                    'uuid' => $uuid,
+                    'user_id' => Auth::user()->id,
+                    'user_name' => Auth::user()->name,
+                    'description' => 'Penjualan dengan No Invoice' . $order->invoice,
+                    'service_item_id' => $cart_item['service_item_id'],
+                    'date' => date('Y-m-d'),
+                    'incoming' => 0,
+                    'outcoming' =>  $cart_item['quantity'],
+                    'stock' => $update_stock
+                ];
             }
         }
         DB::table('order_items')->insert($data);

@@ -19,9 +19,9 @@
                     <thead>
                         <tr>
                             <th scope="col">Invoice</th>
-                            <th scope="col">Order</th>
-                            <th scope="col">Servis</th>
                             <th scope="col">Customer</th>
+                            <th scope="col">Kendraan</th>
+                            <th scope="col">Servis</th>
                             <th scope="col">Phone</th>
                             <th scope="col">Date</th>
                             <th scope="col">Status</th>
@@ -44,6 +44,7 @@
                                     @endif
 
                                 </td>
+                                <td> {{ $data->model }} - {{ $data->platnumber }}</td>
                                 <td>
                                     @if ($data->home_service == 0)
                                         Di Bengkel
@@ -51,7 +52,7 @@
                                         Di Rumah
                                     @endif
                                 </td>
-                                <td>{{ $data->full_name }}</td>
+
                                 <td>{{ $data->phone_number }}</td>
                                 <td>{{ date('d-m-Y', strtotime($data->schedule_date)) }}</td>
                                 <td>

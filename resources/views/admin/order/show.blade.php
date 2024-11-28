@@ -122,7 +122,9 @@
                                                                 Rp. {{ number_format($item->price) }}
                                                             </td>
                                                             <td>{{ $item->quantity }}</td>
-                                                            <td>Rp. {{ number_format($item->price) }}</td>
+                                                            <td>
+                                                                @php $total_price = $item->price * $item->quantity @endphp
+                                                                Rp. {{ number_format($total_price) }}</td>
                                                         </tr>
                                                     @endforeach
 
